@@ -42,15 +42,15 @@ Greetings = [
     "Ciao",
     "Hallo",
     "Guten tag",
-    "Olá",
+    # "Olá",
     "Namaste",
     "Salaam",
     "Привет",
-    "こんにちは",
-    "여보세요",
+    # "こんにちは",
+    # "여보세요",
     "Merhaba",
-    "Сайн уу",
-    "Сәлеметсіз бе",
+    # "Сайн уу",
+    # "Сәлеметсіз бе",
     "Szia",
     "Hej",
 ]
@@ -91,8 +91,9 @@ def Execute(data):
     Parent.SendStreamMessage("First param of {}:{}".format(data.user, first_param)
 
     if first_param in Greetings:
-        # greeting_message = PickGreeting(data.user)
-        Parent.SendStreamMessage("I am saying hello back")
+        greeting_message = PickGreeting(data.user)
+        Parent.SendStreamMessage(greeting_message)
+        # Parent.SendStreamMessage("I am saying hello back")
 
     # if data.IsChatMessage() and Parent.IsOnUserCooldown(ScriptName, ScriptSettings.Command, data.User):
     #     remaining_timeout = Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Command, data.User)
