@@ -91,8 +91,8 @@ def Execute(data):
     Parent.SendStreamMessage("First param of {}:{}".format(data.user, first_param)
 
     if first_param in Greetings:
-        greeting_message = PickGreeting(data.user)
-        Parent.SendStreamMessage(greeting_message)
+        # greeting_message = PickGreeting(data.user)
+        Parent.SendStreamMessage("I am saying hello back")
 
     # if data.IsChatMessage() and Parent.IsOnUserCooldown(ScriptName, ScriptSettings.Command, data.User):
     #     remaining_timeout = Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Command, data.User)
