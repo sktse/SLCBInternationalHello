@@ -72,6 +72,9 @@ def Init():
 
     return
 
+def IsValidGreeting(input):
+    return input in InputGreetings
+
 #---------------------------
 #   [Required] Execute Data / Process messages
 #---------------------------
@@ -84,7 +87,7 @@ def Execute(data):
     first_param = data.GetParam(0).lower().strip()
     Parent.SendStreamMessage("First param of {}:{}".format(data.user, first_param)
 
-    if first_param in InputGreetings:
+    if IsValidGreeting(first_param):
         greeting_message = PickGreeting(data.user)
         Parent.SendStreamMessage(greeting_message)
         # Parent.SendStreamMessage("I am saying hello back")
