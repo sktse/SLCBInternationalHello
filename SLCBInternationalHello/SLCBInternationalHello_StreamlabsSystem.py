@@ -12,6 +12,7 @@ clr.AddReference("IronPython.Modules.dll")
 
 #   Import your Settings class
 from Settings_Module import MySettings
+from Configuration_Module import ScriptConfiguration
 #---------------------------
 #   [Required] Script Information
 #---------------------------
@@ -28,6 +29,29 @@ global SettingsFile
 SettingsFile = ""
 global ScriptSettings
 ScriptSettings = MySettings()
+global Greetings
+Greetings = [
+    "Hello",
+    "Greetings",
+    "Hi",
+    "Allo",
+    "Bonjour",
+    "Top-o-the-morning!",
+    "Hola",
+    "Ciao",
+    "Hallo",
+    "Guten tag",
+    "Olá",
+    "Namaste",
+    "Salaam",
+    "Привет",
+    "こんにちは",
+    "여보세요",
+    "Merhaba",
+    "Сайн уу",
+    "Сәлеметсіз бе",
+    "Szia"
+]
 
 #---------------------------
 #   [Required] Initialize Data (Only called on load)
@@ -49,16 +73,24 @@ def Init():
 #   [Required] Execute Data / Process messages
 #---------------------------
 def Execute(data):
-    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Command and Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User):
-        Parent.SendStreamMessage("Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName,ScriptSettings.Command,data.User)))
+    if not data.IsChatMessage():
+        # Only interested in picking up chat messages
+        return
+
+    # What is this?
+    first_param = data.GetParam(0).lower()
+
+    # if data.IsChatMessage() and Parent.IsOnUserCooldown(ScriptName, ScriptSettings.Command, data.User):
+    #     remaining_timeout = Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Command, data.User)
+    #     Parent.SendStreamMessage("Time Remaining for {}:{}".format(data.user, remaining_timeout)
 
     #   Check if the propper command is used, the command is not on cooldown and the user has permission to use the command
-    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Command and not Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User) and Parent.HasPermission(data.User,ScriptSettings.Permission,ScriptSettings.Info):
+    if data.IsChatMessage() and not Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User) and Parent.HasPermission(data.User,ScriptSettings.Permission,ScriptSettings.Info):
         Parent.BroadcastWsEvent("EVENT_MINE","{'show':false}")
         Parent.SendStreamMessage(ScriptSettings.Response)    # Send your message to chat
         Parent.AddUserCooldown(ScriptName,ScriptSettings.Command,data.User,ScriptSettings.Cooldown)  # Put the command on cooldown
 
-    
+
     return
 
 #---------------------------
@@ -68,13 +100,13 @@ def Tick():
     return
 
 #---------------------------
-#   [Optional] Parse method (Allows you to create your own custom $parameters) 
+#   [Optional] Parse method (Allows you to create your own custom $parameters)
 #---------------------------
 def Parse(parseString, userid, username, targetid, targetname, message):
-    
+
     if "$myparameter" in parseString:
         return parseString.replace("$myparameter","I am a cat!")
-    
+
     return parseString
 
 #---------------------------
