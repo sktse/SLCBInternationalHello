@@ -13,7 +13,6 @@ clr.AddReference("IronPython.Modules.dll")
 
 #   Import your Settings class
 from Settings_Module import MySettings
-from Configuration_Module import ScriptConfiguration
 #---------------------------
 #   [Required] Script Information
 #---------------------------
