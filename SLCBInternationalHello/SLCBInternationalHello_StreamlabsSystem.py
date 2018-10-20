@@ -19,8 +19,8 @@ from Configuration_Module import ScriptConfiguration
 #---------------------------
 ScriptName = "Template Script"
 Website = "https://www.streamlabs.com"
-Description = "!test will post a message in chat"
-Creator = "AnkhHeart"
+Description = "Hello! Is it me you are looking for?"
+Creator = "sktse"
 Version = "1.0.0.0"
 
 #---------------------------
