@@ -84,7 +84,7 @@ def Execute(data):
     first_param = data.GetParam(0).lower().strip()
     Parent.SendStreamMessage("First param of {}:{}".format(data.user, first_param)
 
-    if first_param in Greetings:
+    if first_param in InputGreetings:
         greeting_message = PickGreeting(data.user)
         Parent.SendStreamMessage(greeting_message)
         # Parent.SendStreamMessage("I am saying hello back")
