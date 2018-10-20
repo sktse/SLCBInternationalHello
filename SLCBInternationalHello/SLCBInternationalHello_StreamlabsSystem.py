@@ -1,9 +1,10 @@
 #---------------------------
 #   Import Libraries
 #---------------------------
-import os
-import sys
 import json
+import os
+import random
+import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib")) #point at lib folder for classes / references
 
 import clr
@@ -50,8 +51,12 @@ Greetings = [
     "Merhaba",
     "Сайн уу",
     "Сәлеметсіз бе",
-    "Szia"
+    "Szia",
+    "Hej",
 ]
+global InputGreetings
+InputGreetings = []
+
 
 #---------------------------
 #   [Required] Initialize Data (Only called on load)
@@ -66,7 +71,11 @@ def Init():
     #   Load settings
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = MySettings(SettingsFile)
-    ScriptSettings.Response = "Overwritten pong! ^_^"
+    # ScriptSettings.Response = "Overwritten pong! ^_^"
+
+    for greeting in Greetings:
+        InputGreetings.append(greeting.lower())
+
     return
 
 #---------------------------
@@ -78,20 +87,30 @@ def Execute(data):
         return
 
     # What is this?
-    first_param = data.GetParam(0).lower()
+    first_param = data.GetParam(0).lower().strip()
+    Parent.SendStreamMessage("First param of {}:{}".format(data.user, first_param)
+
+    if first_param in Greetings:
+        greeting_message = PickGreeting(data.user)
+        Parent.SendStreamMessage(greeting_message)
 
     # if data.IsChatMessage() and Parent.IsOnUserCooldown(ScriptName, ScriptSettings.Command, data.User):
     #     remaining_timeout = Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Command, data.User)
     #     Parent.SendStreamMessage("Time Remaining for {}:{}".format(data.user, remaining_timeout)
-
     #   Check if the propper command is used, the command is not on cooldown and the user has permission to use the command
-    if data.IsChatMessage() and not Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User) and Parent.HasPermission(data.User,ScriptSettings.Permission,ScriptSettings.Info):
-        Parent.BroadcastWsEvent("EVENT_MINE","{'show':false}")
-        Parent.SendStreamMessage(ScriptSettings.Response)    # Send your message to chat
-        Parent.AddUserCooldown(ScriptName,ScriptSettings.Command,data.User,ScriptSettings.Cooldown)  # Put the command on cooldown
-
+    # if data.IsChatMessage() and not Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User) and Parent.HasPermission(data.User,ScriptSettings.Permission,ScriptSettings.Info):
+    #     Parent.BroadcastWsEvent("EVENT_MINE","{'show':false}")
+    #     Parent.SendStreamMessage(ScriptSettings.Response)    # Send your message to chat
+    #     Parent.AddUserCooldown(ScriptName,ScriptSettings.Command,data.User,ScriptSettings.Cooldown)  # Put the command on cooldown
+    #
 
     return
+
+def PickGreeting(user):
+    greeting = random.choice(Greetings)
+    if user:
+        greeting = "{} {}".format(greeting, user)
+    return greeting
 
 #---------------------------
 #   [Required] Tick method (Gets called during every iteration even when there is no incoming data)
