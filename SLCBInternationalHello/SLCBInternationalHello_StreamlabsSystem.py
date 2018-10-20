@@ -72,9 +72,6 @@ def Init():
 
     return
 
-def IsValidGreeting(input):
-    return input in InputGreetings
-
 #---------------------------
 #   [Required] Execute Data / Process messages
 #---------------------------
@@ -85,10 +82,12 @@ def Execute(data):
 
     # What is this?
     first_param = data.GetParam(0).lower().strip()
-    Parent.SendStreamMessage("First param of {}:{}".format(data.user, first_param)
+    Parent.SendStreamMessage("First param of {}:{}".format(data.user, first_param))
 
-    greeting_message = PickGreeting(data.user)
-    Parent.SendStreamMessage(greeting_message)
+    if first_param in InputGreetings:
+        greeting_message = PickGreeting(data.user)
+        Parent.SendStreamMessage(greeting_message)
+        # Parent.SendStreamMessage("I am saying hello back")
 
     # if data.IsChatMessage() and Parent.IsOnUserCooldown(ScriptName, ScriptSettings.Command, data.User):
     #     remaining_timeout = Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Command, data.User)
