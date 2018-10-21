@@ -148,9 +148,15 @@ def log(message):
 
 
 def PickGreeting(user):
-    random_array = [random.randint(0, len(Greetings)) for p in range(0, len(Greetings))]
+    pool_length = len(Greetings)
+    random_array = [random.randint(0, pool_length * pool_length) % pool_length for p in range(0, 20)]
     log("Random selection pool: {}".format(random_array))
     random_index = random.choice(random_array)
+
+    is_reverse_index = random.randint(0, 1)
+    if is_reverse_index:
+        random_index = pool_length - random_index - 1
+
     greeting = Greetings[random_index]
     if user:
         greeting = "{} @{}".format(greeting, user)
