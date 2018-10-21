@@ -20,7 +20,7 @@ ScriptName = "International Hello"
 Website = "https://github.com/sktse"
 Description = "Hello! Is it me you are looking for?"
 Creator = "sktse"
-Version = "1.0.0.0"
+Version = "1.0.1"
 
 #---------------------------
 #   Define Global Variables
@@ -89,6 +89,7 @@ def Init():
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = CommandSettings(SettingsFile)
     ScriptSettings.ScriptName = ScriptName
+    ScriptSettings.ScriptVersion = Version
 
     for greeting in InputGreetings:
         InputGreetings.append(greeting.lower())

@@ -12,6 +12,7 @@ class CommandSettings(object):
             self.Cooldown = 60
             self.Debug = False
             self.ScriptName = "International Hello"
+			self.ScriptVersion = "1.0.1"
 
     def Reload(self, jsondata):
         self.__dict__ = json.loads(jsondata, encoding="utf-8")
