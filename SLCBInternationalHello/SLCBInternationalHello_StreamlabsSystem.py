@@ -143,7 +143,7 @@ def log(message):
 
 def PickGreeting(user):
     # greeting = random.choice(Greetings)
-    greeting = '\xe4\xbd\xa0\xe5\xa5\xbd'  # Chinese
+    greeting = '\xff\xfeJ\x00o\x00s\x00\xe9\x00'  # Jose?
     if user:
         greeting = "{} @{}".format(greeting, user)
     return greeting
