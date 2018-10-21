@@ -7,3 +7,6 @@ SLCB_InternationalHello/Settings/settings.json
 
 # git
 .git
+
+# PyCharm
+.idea
