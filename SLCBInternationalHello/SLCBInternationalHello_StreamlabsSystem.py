@@ -88,6 +88,7 @@ def Init():
     #   Load settings
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = CommandSettings(SettingsFile)
+    ScriptSettings.ScriptName = ScriptName
 
     for greeting in Greetings:
         InputGreetings.append(greeting.lower())
@@ -107,29 +108,36 @@ def Execute(data):
 
     if first_param not in InputGreetings:
         # The user did not say a greeting
-        Parent.Log(ScriptName, "User [{}] did not say hello".format(data.User))
+        log("User [{}] did not say hello".format(data.User))
         return
 
     if not Parent.HasPermission(data.User, ScriptSettings.Permission, ScriptSettings.Info):
         # The user does not have permission to trigger this command
-        Parent.Log(ScriptName, "User [{}] does not have permission".format(data.User))
+        log("User [{}] does not have permission".format(data.User))
         return
 
     if Parent.IsOnUserCooldown(ScriptName, CommandConstant, data.User):
         # The user is on cool down for this command
         cooldown_remaining = Parent.GetUserCooldownDuration(ScriptName, CommandConstant, data.User)
-        Parent.Log(ScriptName, "User [{}] is still on cooldown for: {}".format(data.User, cooldown_remaining))
+        log("User [{}] is still on cooldown for: {}".format(data.User, cooldown_remaining))
         return
 
     if first_param in InputGreetings:
         greeting_message = PickGreeting(data.User)
-        Parent.Log(ScriptName, "User [{}] triggered the reply: {}".format(data.User, greeting_message))
+        log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
         Parent.SendStreamMessage(greeting_message)
 
         cooldown_in_seconds = int(ScriptSettings.Cooldown) * 60
         Parent.AddUserCooldown(ScriptName, CommandConstant, data.User, cooldown_in_seconds)
 
     return
+
+
+def log(message):
+    if ScriptSettings.Debug:
+        Parent.Log(ScriptName, message)
+    return
+
 
 def PickGreeting(user):
     greeting = random.choice(Greetings)
