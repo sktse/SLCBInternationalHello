@@ -57,19 +57,19 @@ Greetings = [
     "Salut",  # Romanian, etc
     "Ahoj",  # Slovak
     "Sawubona",  # Zulu
-    'xin ch\xc3\xa0o',  # Vietnamese
-    'Dzie\xc5\x84 dobry',  # Polish
-    'Ol\xc3\xa1',  # Portugese
-    '\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\xaf',  # Japanese
-    '\xec\x97\xac\xeb\xb3\xb4\xec\x84\xb8\xec\x9a\x94',  # Korean
-    '\xd0\xa1\xd0\xb0\xd0\xb9\xd0\xbd \xd1\x83\xd1\x83',  # Mongolian
-    '\xd0\xa1\xd3\x99\xd0\xbb\xd0\xb5\xd0\xbc\xd0\xb5\xd1\x82\xd1\x81\xd1\x96\xd0\xb7 \xd0\xb1\xd0\xb5',  # Kazakh
-    '\xd0\x9f\xd1\x80\xd0\xb8\xd0\xb2\xd0\xb5\xd1\x82',  # Russian
-    '\xe4\xbd\xa0\xe5\xa5\xbd',  # Chinese
-    'P\xc3\xabrsh\xc3\xabndetje',  # Albanian
-    '\xe1\x88\xb0\xe1\x88\x8b\xe1\x88\x9d',  # Amharic
-    '\xd9\x85\xd8\xb1\xd8\xad\xd8\xa8\xd8\xa7',  # Arabic
-    '\xce\xb3\xce\xb5\xce\xb9\xce\xb1 \xcf\x83\xce\xb1\xcf\x82',  # Greek
+    u'xin ch\xe0o',  # Vietnamese
+    u'Dzie\u0144 dobry',  # Polish
+    u'Ol\xe1',  # Portugese
+    u'\u3053\u3093\u306b\u3061\u306f',  # Japanese - Kon'nichiwa
+    u'\uc5ec\ubcf4\uc138\uc694',  # Korean - yeoboseyo
+    u'\u0421\u0430\u0439\u043d \u0443\u0443',  # Mongolian - Sain uu
+    u'\u0421\u04d9\u043b\u0435\u043c\u0435\u0442\u0441\u0456\u0437 \u0431\u0435',  # Kazakh - Salemetsiz be
+    u'\u041f\u0440\u0438\u0432\u0435\u0442',  # Russian - Privet
+    u'\u4f60\u597d',  # Chinese - Ni Hao
+    u'P\xebrsh\xebndetje',  # Albanian
+    u'\u1230\u120b\u121d',  # Amharic - selami
+    u'\u0645\u0631\u062d\u0628\u0627',  # Arabic - marhabaan
+    u'\u03b3\u03b5\u03b9\u03b1 \u03c3\u03b1\u03c2',  # Greek - geia sas
 ]
 global InputGreetings
 InputGreetings = []
