@@ -36,6 +36,6 @@
     "value": false,
     "label": "Enable Logging",
     "tooltip": "Turn on for debugging logging",
-    "group": "Checkboxes"
+    "group": "Developer"
   }
 }
