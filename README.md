@@ -13,7 +13,7 @@ A Streamlabs Chatbot script that will reply configure your bot to say hello to u
 * Streamlabs Chatbot supports importing scripts as Zip files.
 * To download the `SLCBInternationalHello` Zip file:
     * Find all the releases by going to [releases tab](https://github.com/sktse/SLCBInternationalHello/releases)
-    * For the version you want to use, click the `Source code (zip)` link to get the Zip file.
+    * For the version you want to use, click the ![Source code (zip)](https://user-images.githubusercontent.com/11049883/47271071-a3f37780-d542-11e8-88d8-e8ed8044fd12.png) link to get the Zip file.
 
 ![Streamlabs Chatbot Screenshot](https://user-images.githubusercontent.com/11049883/47262578-37349a80-d4ba-11e8-9812-c3354bebc13d.png)
 * In Streamlabs Chatbot, select the Scripts tab on the left menu.
