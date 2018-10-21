@@ -91,7 +91,7 @@ def Execute(data):
         # The user does not have permission to trigger this command
         return
 
-    if Parent.IsOnUserCooldown(ScriptName, CommandConstant, data.User)
+    if Parent.IsOnUserCooldown(ScriptName, CommandConstant, data.User):
         # The user is on cooldown for this command
         return
 
