@@ -25,7 +25,7 @@
     "type": "slider",
     "value": 60,
     "min": 0,
-    "max": 200,
+    "max": 240,
     "ticks": 1,
     "label": "Cooldown (minutes)",
     "tooltip": "How long the reply should go on cooldown for",
