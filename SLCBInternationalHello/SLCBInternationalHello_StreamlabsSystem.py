@@ -41,8 +41,10 @@ Greetings = [
     "Top-o-the-morning",
     "Hola",  # Spanish
     "Ciao",  # Italian
+    "Buongiorno",  # Italian
     "Hallo",  # German
     "Guten tag",  # German
+    "Moin moin",  # German
     "Namaste",  # Hindi
     "Salaam",  # Farsi
     "Merhaba",  # Turkish
@@ -51,16 +53,23 @@ Greetings = [
     "Zdravo",  # Croatian
     "Ahoj",  # Czech
     "Kamusta",  # Flipino
-    "Hei",  # Finnish
+    "Hei",  # Finnish, Norwegian
+    "God dag",  # Norwegian
     "Halo",  # Indonesian
     "Sveiki",  # Latvian
     "Salut",  # Romanian, etc
     "Ahoj",  # Slovak
     "Sawubona",  # Zulu
+    "Hullo",  # Scottish
+    "Dia dhuit",  # Gaelic
+    "G'day",  # Australian
+    "Aloha",  # Hawaiian
     u'xin ch\xe0o',  # Vietnamese
     u'Dzie\u0144 dobry',  # Polish
     u'Ol\xe1',  # Portugese
+    u'\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35',  # Thai - swasdi
     u'\u3053\u3093\u306b\u3061\u306f',  # Japanese - Kon'nichiwa
+    u'\u3082\u3057\u3082\u3057',  # Japanese - Moshi Moshi
     u'\uc5ec\ubcf4\uc138\uc694',  # Korean - yeoboseyo
     u'\u0421\u0430\u0439\u043d \u0443\u0443',  # Mongolian - Sain uu
     u'\u0421\u04d9\u043b\u0435\u043c\u0435\u0442\u0441\u0456\u0437 \u0431\u0435',  # Kazakh - Salemetsiz be
