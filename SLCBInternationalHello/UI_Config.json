@@ -25,11 +25,4 @@
       "tooltip": "How long the reply should go on cooldown for",
       "group": "Core"
     },
-    "Response": {
-        "type": "textbox",
-        "value": "Pong!",
-        "label": "Command",
-        "tooltip": "The message that will be sent to chat when using the command.",
-        "group": "Core"
-    }
   }
