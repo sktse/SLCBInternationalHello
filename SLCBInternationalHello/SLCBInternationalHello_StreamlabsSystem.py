@@ -107,6 +107,8 @@ def Init():
     for greeting in Greetings:
         InputGreetings.append(greeting.lower())
 
+    log("Input greetings:{}".format(InputGreetings))
+
     return
 
 #---------------------------
