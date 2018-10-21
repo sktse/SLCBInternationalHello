@@ -143,7 +143,7 @@ def log(message):
 
 def PickGreeting(user):
     # greeting = random.choice(Greetings)
-    greeting = '\xff\xfeJ\x00o\x00s\x00\xe9\x00'  # Jose?
+    greeting = '\xe4\xbd\xa0\xe5\xa5\xbd'.encode('utf-8')  # Chinese
     if user:
         greeting = "{} @{}".format(greeting, user)
     return greeting
@@ -165,6 +165,7 @@ def Parse(parseString, userid, username, targetid, targetname, message):
 #---------------------------
 def ReloadSettings(jsonData):
     # Execute json reloading here
+    SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings.__dict__ = json.loads(jsonData)
     ScriptSettings.Save(SettingsFile, Parent, ScriptName)
     return
