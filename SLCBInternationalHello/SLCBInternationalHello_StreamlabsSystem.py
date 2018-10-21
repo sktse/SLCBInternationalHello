@@ -48,7 +48,9 @@ Greetings = [
     '\xce\xb3\xce\xb5\xce\xb9\xce\xb1 \xcf\x83\xce\xb1\xcf\x82',  # Greek
 ]
 global InputGreetings
-InputGreetings = [
+InputGreetings = []
+global DebugGreetings
+DebugGreetings = [
     "Hello",
     "Greetings",
     "Hi",
@@ -104,7 +106,7 @@ def Init():
     ScriptSettings = CommandSettings(SettingsFile)
     ScriptSettings.ScriptName = ScriptName
 
-    for greeting in Greetings:
+    for greeting in DebugGreetings:
         InputGreetings.append(greeting.lower())
 
     log("Input greetings:{}".format(InputGreetings))
@@ -179,7 +181,7 @@ def Parse(parseString, userid, username, targetid, targetname, message):
 def ReloadSettings(jsonData):
     # Execute json reloading here
     ScriptSettings.__dict__ = json.loads(jsonData)
-    ScriptSettings.Save(SettingsFile)
+    ScriptSettings.Save(SettingsFile, Parent)
     return
 
 #---------------------------
