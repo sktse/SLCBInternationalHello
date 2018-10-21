@@ -20,7 +20,7 @@ ScriptName = "International Hello"
 Website = "https://github.com/sktse"
 Description = "Hello! Is it me you are looking for?"
 Creator = "sktse"
-Version = "1.0.0.0"
+Version = "1.0.0"
 
 #---------------------------
 #   Define Global Variables
@@ -89,8 +89,9 @@ def Init():
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = CommandSettings(SettingsFile)
     ScriptSettings.ScriptName = ScriptName
+    ScriptSettings.ScriptVersion = Version
 
-    for greeting in InputGreetings:
+    for greeting in Greetings:
         InputGreetings.append(greeting.lower())
 
     return
@@ -162,8 +163,9 @@ def Parse(parseString, userid, username, targetid, targetname, message):
 #---------------------------
 def ReloadSettings(jsonData):
     # Execute json reloading here
+    SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings.__dict__ = json.loads(jsonData)
-    ScriptSettings.Save(SettingsFile, Parent)
+    ScriptSettings.Save(SettingsFile, Parent, ScriptName)
     return
 
 #---------------------------
