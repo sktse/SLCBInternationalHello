@@ -16,7 +16,7 @@ from Settings_Module import CommandSettings
 #---------------------------
 #   [Required] Script Information
 #---------------------------
-ScriptName = "International Hello"
+ScriptName = "Unicode Test"
 Website = "https://github.com/sktse"
 Description = "Hello! Is it me you are looking for?"
 Creator = "sktse"
@@ -89,8 +89,7 @@ def Init():
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = CommandSettings(SettingsFile)
 
-    for greeting in Greetings:
-        InputGreetings.append(greeting.lower())
+    InputGreetings.append("banana")
 
     return
 
@@ -123,9 +122,12 @@ def Execute(data):
 
     if first_param in InputGreetings:
         log("User [{}] is getting a reply!".format(data.User))
-        greeting_message = PickGreeting(data.User)
-        log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
-        Parent.SendStreamMessage(greeting_message)
+        Parent.SendStreamMessage(u'Jos\xe9')
+        Parent.SendStreamMessage(u'Jos\xe9'.encode('utf-8'))
+        Parent.SendStreamMessage(u'Jos\xe9'.encode('utf-16'))
+        Parent.SendStreamMessage(u'\u4f60\u597d')
+        Parent.SendStreamMessage(u'\u4f60\u597d'.encode('utf-8'))
+        Parent.SendStreamMessage(u'\u4f60\u597d'.encode('utf-16'))
 
         cooldown_in_seconds = int(ScriptSettings.Cooldown) * 60
         Parent.AddUserCooldown(ScriptName, CommandConstant, data.User, cooldown_in_seconds)
