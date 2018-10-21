@@ -33,24 +33,6 @@ global ScriptSettings
 ScriptSettings = CommandSettings()
 global Greetings
 Greetings = [
-    'xin ch\xc3\xa0o',  # Vietnamese
-    'Dzie\xc5\x84 dobry',  # Polish
-    'Ol\xc3\xa1',  # Portugese
-    '\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\xaf',  # Japanese
-    '\xec\x97\xac\xeb\xb3\xb4\xec\x84\xb8\xec\x9a\x94',  # Korean
-    '\xd0\xa1\xd0\xb0\xd0\xb9\xd0\xbd \xd1\x83\xd1\x83',  # Mongolian
-    '\xd0\xa1\xd3\x99\xd0\xbb\xd0\xb5\xd0\xbc\xd0\xb5\xd1\x82\xd1\x81\xd1\x96\xd0\xb7 \xd0\xb1\xd0\xb5',  # Kazakh
-    '\xd0\x9f\xd1\x80\xd0\xb8\xd0\xb2\xd0\xb5\xd1\x82',  # Russian
-    '\xe4\xbd\xa0\xe5\xa5\xbd',  # Chinese
-    'P\xc3\xabrsh\xc3\xabndetje',  # Albanian
-    '\xe1\x88\xb0\xe1\x88\x8b\xe1\x88\x9d',  # Amharic
-    '\xd9\x85\xd8\xb1\xd8\xad\xd8\xa8\xd8\xa7',  # Arabic
-    '\xce\xb3\xce\xb5\xce\xb9\xce\xb1 \xcf\x83\xce\xb1\xcf\x82',  # Greek
-]
-global InputGreetings
-InputGreetings = []
-global DebugGreetings
-DebugGreetings = [
     "Hello",
     "Greetings",
     "Hi",
@@ -89,6 +71,8 @@ DebugGreetings = [
     '\xd9\x85\xd8\xb1\xd8\xad\xd8\xa8\xd8\xa7',  # Arabic
     '\xce\xb3\xce\xb5\xce\xb9\xce\xb1 \xcf\x83\xce\xb1\xcf\x82',  # Greek
 ]
+global InputGreetings
+InputGreetings = []
 
 
 #---------------------------
@@ -106,10 +90,8 @@ def Init():
     ScriptSettings = CommandSettings(SettingsFile)
     ScriptSettings.ScriptName = ScriptName
 
-    for greeting in DebugGreetings:
+    for greeting in InputGreetings:
         InputGreetings.append(greeting.lower())
-
-    log("Input greetings:{}".format(InputGreetings))
 
     return
 
