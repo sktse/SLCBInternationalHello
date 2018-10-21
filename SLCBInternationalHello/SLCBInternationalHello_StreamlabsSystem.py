@@ -125,7 +125,9 @@ def Execute(data):
         greeting_message = PickGreeting(data.User)
         Parent.Log(ScriptName, "User [{}] triggered the reply: {}".format(data.User, greeting_message))
         Parent.SendStreamMessage(greeting_message)
-        Parent.AddUserCooldown(ScriptName, CommandConstant, data.User, ScriptSettings.Cooldown)
+
+        cooldown_in_seconds = int(ScriptSettings.Cooldown) * 60
+        Parent.AddUserCooldown(ScriptName, CommandConstant, data.User, cooldown_in_seconds)
 
     return
 
