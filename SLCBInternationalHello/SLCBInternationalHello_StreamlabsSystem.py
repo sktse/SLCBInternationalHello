@@ -124,6 +124,7 @@ def Execute(data):
         return
 
     if first_param in InputGreetings:
+        log("User [{}] is getting a reply!".format(data.User))
         greeting_message = PickGreeting(data.User)
         log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
         Parent.SendStreamMessage(greeting_message)
