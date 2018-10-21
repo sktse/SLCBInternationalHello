@@ -36,18 +36,40 @@ Greetings = [
     "Hello",
     "Greetings",
     "Hi",
-    "Allo",
-    "Bonjour",
+    "Allo",  # French
+    "Bonjour",   # French
     "Top-o-the-morning",
-    "Hola",
-    "Ciao",
-    "Hallo",
-    "Guten tag",
-    "Namaste",
-    "Salaam",
-    "Merhaba",
-    "Szia",
-    "Hej",
+    "Hola",  # Spanish
+    "Ciao",  # Italian
+    "Hallo",  # German
+    "Guten tag",  # German
+    "Namaste",  # Hindi
+    "Salaam",  # Farsi
+    "Merhaba",  # Turkish
+    "Szia",  # Hungarian
+    "Hej",  # Swedish, Danish
+    "Zdravo",  # Croatian
+    "Ahoj",  # Czech
+    "Kamusta",  # Flipino
+    "Hei",  # Finnish
+    "Halo",  # Indonesian
+    "Sveiki",  # Latvian
+    "Salut",  # Romanian, etc
+    "Ahoj",  # Slovak
+    "Sawubona",  # Zulu
+    'xin ch\xc3\xa0o',  # Vietnamese
+    'Dzie\xc5\x84 dobry',  # Polish
+    'Ol\xc3\xa1',  # Portugese
+    '\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\xaf',  # Japanese
+    '\xec\x97\xac\xeb\xb3\xb4\xec\x84\xb8\xec\x9a\x94',  # Korean
+    '\xd0\xa1\xd0\xb0\xd0\xb9\xd0\xbd \xd1\x83\xd1\x83',  # Mongolian
+    '\xd0\xa1\xd3\x99\xd0\xbb\xd0\xb5\xd0\xbc\xd0\xb5\xd1\x82\xd1\x81\xd1\x96\xd0\xb7 \xd0\xb1\xd0\xb5',  # Kazakh
+    '\xd0\x9f\xd1\x80\xd0\xb8\xd0\xb2\xd0\xb5\xd1\x82',  # Russian
+    '\xe4\xbd\xa0\xe5\xa5\xbd',  # Chinese
+    'P\xc3\xabrsh\xc3\xabndetje',  # Albanian
+    '\xe1\x88\xb0\xe1\x88\x8b\xe1\x88\x9d',  # Amharic
+    '\xd9\x85\xd8\xb1\xd8\xad\xd8\xa8\xd8\xa7',  # Arabic
+    '\xce\xb3\xce\xb5\xce\xb9\xce\xb1 \xcf\x83\xce\xb1\xcf\x82',  # Greek
 ]
 global InputGreetings
 InputGreetings = []
@@ -85,31 +107,25 @@ def Execute(data):
 
     if first_param not in InputGreetings:
         # The user did not say a greeting
+        Parent.Log(ScriptName, "User [{}] did not say hello".format(data.User))
         return
 
     if not Parent.HasPermission(data.User, ScriptSettings.Permission, ScriptSettings.Info):
         # The user does not have permission to trigger this command
+        Parent.Log(ScriptName, "User [{}] does not have permission".format(data.User))
         return
 
     if Parent.IsOnUserCooldown(ScriptName, CommandConstant, data.User):
-        # The user is on cooldown for this command
+        # The user is on cool down for this command
+        cooldown_remaining = Parent.GetUserCooldownDuration(ScriptName, CommandConstant, data.User)
+        Parent.Log(ScriptName, "User [{}] is still on cooldown for: {}".format(data.User, cooldown_remaining))
         return
 
     if first_param in InputGreetings:
         greeting_message = PickGreeting(data.User)
+        Parent.Log(ScriptName, "User [{}] triggered the reply: {}".format(data.User, greeting_message))
         Parent.SendStreamMessage(greeting_message)
         Parent.AddUserCooldown(ScriptName, CommandConstant, data.User, ScriptSettings.Cooldown)
-
-
-    # if data.IsChatMessage() and Parent.IsOnUserCooldown(ScriptName, ScriptSettings.Command, data.User):
-    #     remaining_timeout = Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Command, data.User)
-    #     Parent.SendStreamMessage("Time Remaining for {}:{}".format(data.user, remaining_timeout)
-    #   Check if the propper command is used, the command is not on cooldown and the user has permission to use the command
-    # if data.IsChatMessage() and not Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User) and Parent.HasPermission(data.User,ScriptSettings.Permission,ScriptSettings.Info):
-    #     Parent.BroadcastWsEvent("EVENT_MINE","{'show':false}")
-    #     Parent.SendStreamMessage(ScriptSettings.Response)    # Send your message to chat
-    #     Parent.AddUserCooldown(ScriptName,ScriptSettings.Command,data.User,ScriptSettings.Cooldown)  # Put the command on cooldown
-    #
 
     return
 
@@ -129,10 +145,6 @@ def Tick():
 #   [Optional] Parse method (Allows you to create your own custom $parameters)
 #---------------------------
 def Parse(parseString, userid, username, targetid, targetname, message):
-
-    if "$myparameter" in parseString:
-        return parseString.replace("$myparameter","I am a cat!")
-
     return parseString
 
 #---------------------------
