@@ -24,7 +24,7 @@ class CommandSettings(object):
                 json.dump(self.__dict__, f, encoding="utf-8")
             with codecs.open(settingsfile.replace("json", "js"), encoding="utf-8-sig", mode="w+") as f:
                 f.write("var settings = {0};".format(json.dumps(self.__dict__, encoding='utf-8')))
-        except:
+        except Exception as e:
             if parent:
-                parent.Log(script_name, "Failed to save settings to file.")
+                parent.Log(script_name, "Failed to save settings to file: {}".format(e))
         return
