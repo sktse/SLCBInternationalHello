@@ -88,8 +88,6 @@ def Init():
     #   Load settings
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = CommandSettings(SettingsFile)
-    ScriptSettings.ScriptName = ScriptName
-    ScriptSettings.ScriptVersion = Version
 
     for greeting in Greetings:
         InputGreetings.append(greeting.lower())
