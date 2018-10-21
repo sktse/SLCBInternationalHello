@@ -20,7 +20,7 @@ ScriptName = "International Hello"
 Website = "https://github.com/sktse"
 Description = "Hello! Is it me you are looking for?"
 Creator = "sktse"
-Version = "1.0.0"
+Version = "1.0.1"
 
 #---------------------------
 #   Define Global Variables
