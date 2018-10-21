@@ -2,6 +2,13 @@
 
 A Streamlabs Chatbot script that will reply configure your bot to say hello to users saying hello.
 
+## Details
+![Hello to you too](https://user-images.githubusercontent.com/11049883/47270459-190e7f00-d53a-11e8-8cc3-7029db9daf27.png)
+
+* Whenever a user starts a chat message with any of the greetings below, the bot will randomly say a greeting back at the user.
+* The cooldown per user can be configured for a long duration (up to 4 hours).
+* This prevents your Chatbot from saying hello to people who were replying to someone else.
+
 ## How to Import into Streamlabs Chatbot
 * Streamlabs Chatbot supports importing scripts as Zip files.
 * To download the `SLCBInternationalHello` Zip file:
