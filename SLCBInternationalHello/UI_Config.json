@@ -1,12 +1,5 @@
 {
     "output_file": "Settings/settings.json",
-    "Command": {
-      "type": "textbox",
-      "value": "!ping",
-      "label": "Command",
-      "tooltip": "The command that will be responded to.",
-      "group": "Core"
-    },
     "Permission": {
       "type": "dropdown",
       "value": "everyone",
@@ -24,12 +17,12 @@
       },
     "Cooldown": {
       "type": "slider",
-      "value": 4,
-      "min": 1,
-      "max": 100,
+      "value": 60,
+      "min": 0,
+      "max": 200,
       "ticks": 1,
-      "label": "Cooldown (seconds)",
-      "tooltip": "How long the command should go on cooldown for",
+      "label": "Cooldown (minutes)",
+      "tooltip": "How long the reply should go on cooldown for",
       "group": "Core"
     },
     "Response": {

@@ -12,12 +12,12 @@ clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
 
 #   Import your Settings class
-from Settings_Module import MySettings
+from Settings_Module import CommandSettings
 #---------------------------
 #   [Required] Script Information
 #---------------------------
-ScriptName = "Template Script"
-Website = "https://www.streamlabs.com"
+ScriptName = "International Hello"
+Website = "https://github.com/sktse"
 Description = "Hello! Is it me you are looking for?"
 Creator = "sktse"
 Version = "1.0.0.0"
@@ -25,10 +25,12 @@ Version = "1.0.0.0"
 #---------------------------
 #   Define Global Variables
 #---------------------------
+global CommandConstant
+CommandConstant = "HelloReply"
 global SettingsFile
 SettingsFile = ""
 global ScriptSettings
-ScriptSettings = MySettings()
+ScriptSettings = CommandSettings()
 global Greetings
 Greetings = [
     "Hello",
@@ -36,7 +38,7 @@ Greetings = [
     "Hi",
     "Allo",
     "Bonjour",
-    "Top-o-the-morning!",
+    "Top-o-the-morning",
     "Hola",
     "Ciao",
     "Hallo",
@@ -63,8 +65,7 @@ def Init():
 
     #   Load settings
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
-    ScriptSettings = MySettings(SettingsFile)
-    # ScriptSettings.Response = "Overwritten pong! ^_^"
+    ScriptSettings = CommandSettings(SettingsFile)
 
     for greeting in Greetings:
         InputGreetings.append(greeting.lower())
@@ -79,14 +80,26 @@ def Execute(data):
         # Only interested in picking up chat messages
         return
 
-    # What is this?
+    # This is the first word that the User typed
     first_param = data.GetParam(0).lower().strip()
-    Parent.SendStreamMessage("First param of {}:{}".format(data.User, first_param))
+
+    if first_param not in InputGreetings:
+        # The user did not say a greeting
+        return
+
+    if not Parent.HasPermission(data.User, ScriptSettings.Permission, ScriptSettings.Info):
+        # The user does not have permission to trigger this command
+        return
+
+    if Parent.IsOnUserCooldown(ScriptName, CommandConstant, data.User)
+        # The user is on cooldown for this command
+        return
 
     if first_param in InputGreetings:
         greeting_message = PickGreeting(data.User)
         Parent.SendStreamMessage(greeting_message)
-        # Parent.SendStreamMessage("I am saying hello back")
+        Parent.AddUserCooldown(ScriptName, CommandConstant, data.User, ScriptSettings.Cooldown)
+
 
     # if data.IsChatMessage() and Parent.IsOnUserCooldown(ScriptName, ScriptSettings.Command, data.User):
     #     remaining_timeout = Parent.GetUserCooldownDuration(ScriptName, ScriptSettings.Command, data.User)
@@ -103,7 +116,7 @@ def Execute(data):
 def PickGreeting(user):
     greeting = random.choice(Greetings)
     if user:
-        greeting = "{} {}".format(greeting, user)
+        greeting = "{} @{}".format(greeting, user)
     return greeting
 
 #---------------------------
