@@ -127,8 +127,7 @@ def Execute(data):
         log("User [{}] is getting a reply!".format(data.User))
         greeting_message = PickGreeting(data.User)
         log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
-        # Parent.SendStreamMessage(greeting_message)
-        test_greetings()
+        Parent.SendStreamMessage(greeting_message)
 
         cooldown_in_seconds = int(ScriptSettings.Cooldown) * 60
         Parent.AddUserCooldown(ScriptName, CommandConstant, data.User, cooldown_in_seconds)
@@ -141,15 +140,10 @@ def log(message):
         Parent.Log(ScriptName, message)
     return
 
-def test_greetings():
-    base_greeting = u'\u308f\u304b\u308a\u307e\u305b\u3093'
-    Parent.SendStreamMessage(base_greeting)
-    Parent.SendStreamMessage(base_greeting.encode('utf-8'))
-    Parent.SendStreamMessage(base_greeting.encode('utf-16'))
-
 def PickGreeting(user):
     # greeting = random.choice(Greetings)
-    greeting = '\xe4\xbd\xa0\xe5\xa5\xbd'.encode('utf-8')  # Chinese
+    # greeting = '\xe4\xbd\xa0\xe5\xa5\xbd'.encode('utf-8')  # Chinese
+    greeting = u'\u4f60\u597d'
     if user:
         greeting = "{} @{}".format(greeting, user)
     return greeting
