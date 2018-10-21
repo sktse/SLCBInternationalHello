@@ -90,7 +90,7 @@ def Init():
     ScriptSettings = CommandSettings(SettingsFile)
     ScriptSettings.ScriptName = ScriptName
 
-    for greeting in InputGreetings:
+    for greeting in Greetings:
         InputGreetings.append(greeting.lower())
 
     return
