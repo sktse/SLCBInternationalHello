@@ -18,7 +18,7 @@ class CommandSettings(object):
         self.__dict__ = json.loads(jsondata, encoding="utf-8")
         return
 
-    def Save(self, settingsfile, parent=None):
+    def Save(self, settingsfile, parent=None, script_name=None):
         try:
             with codecs.open(settingsfile, encoding="utf-8-sig", mode="w+") as f:
                 json.dump(self.__dict__, f, encoding="utf-8")
@@ -26,5 +26,5 @@ class CommandSettings(object):
                 f.write("var settings = {0};".format(json.dumps(self.__dict__, encoding='utf-8')))
         except:
             if parent:
-                parent.Log(self.ScriptName, "Failed to save settings to file.")
+                parent.Log(script_name, "Failed to save settings to file.")
         return

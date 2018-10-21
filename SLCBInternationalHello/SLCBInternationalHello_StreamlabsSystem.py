@@ -91,7 +91,7 @@ def Init():
     ScriptSettings.ScriptName = ScriptName
     ScriptSettings.ScriptVersion = Version
 
-    for greeting in InputGreetings:
+    for greeting in Greetings:
         InputGreetings.append(greeting.lower())
 
     return
@@ -165,7 +165,7 @@ def Parse(parseString, userid, username, targetid, targetname, message):
 def ReloadSettings(jsonData):
     # Execute json reloading here
     ScriptSettings.__dict__ = json.loads(jsonData)
-    ScriptSettings.Save(SettingsFile, Parent)
+    ScriptSettings.Save(SettingsFile, Parent, ScriptName)
     return
 
 #---------------------------
