@@ -2,7 +2,7 @@
 
 A Streamlabs Chatbot script that will reply configure your bot to say hello to users saying hello.
 
-## Description
+## Details
 ![Hello to you too](https://user-images.githubusercontent.com/11049883/47270459-190e7f00-d53a-11e8-8cc3-7029db9daf27.png)
 
 * Whenever a user starts a chat message with any of the greetings below, the bot will randomly say a greeting back at the user.
@@ -10,11 +10,10 @@ A Streamlabs Chatbot script that will reply configure your bot to say hello to u
 * This prevents your Chatbot from saying hello to people who were replying to someone else.
 
 ## How to Import into Streamlabs Chatbot
-* These instructions are based on the official [Streamlabs Chatbot Document](https://cdn.streamlabs.com/chatbot/Documentation_Twitch.pdf).
 * Streamlabs Chatbot supports importing scripts as Zip files.
 * To download the `SLCBInternationalHello` Zip file:
     * Find all the releases by going to [releases tab](https://github.com/sktse/SLCBInternationalHello/releases)
-    * For the version you want to use, click the ![Source code (zip)](https://user-images.githubusercontent.com/11049883/47271071-a3f37780-d542-11e8-88d8-e8ed8044fd12.png) link to get the Zip file.
+    * For the version you want to use, click the ![Source code (zip)](https://user-images.githubusercontent.com/11049883/47276930-ee97e280-d588-11e8-870c-b6892fcaefe1.png) link to get the Zip file.
 
 ![Streamlabs Chatbot Screenshot](https://user-images.githubusercontent.com/11049883/47262578-37349a80-d4ba-11e8-9812-c3354bebc13d.png)
 * In Streamlabs Chatbot, select the Scripts tab on the left menu.
