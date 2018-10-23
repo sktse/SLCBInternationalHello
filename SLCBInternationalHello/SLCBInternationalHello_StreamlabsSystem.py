@@ -99,6 +99,7 @@ def Init():
     ScriptSettings = CommandSettings(SettingsFile)
 
     initialize_input_greetings()
+    log("Recognized input greetings:{}".format(InputGreetings))
     return
 
 
@@ -211,6 +212,7 @@ def ReloadSettings(jsonData):
     ScriptSettings.__dict__ = json.loads(jsonData)
     ScriptSettings.Save(SettingsFile, Parent, ScriptName)
     initialize_input_greetings()
+    log("Recognized input greetings:{}".format(InputGreetings))
     return
 
 #---------------------------
