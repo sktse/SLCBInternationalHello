@@ -125,7 +125,7 @@ def parse_custom_commands(commands_string):
     custom_commmands = []
     commands_array = commands_string.split(";")
     for command_string in commands_array:
-        cleaned_command_string = command_string.trim()
+        cleaned_command_string = command_string.strip()
         if cleaned_command_string:
             # The input is valid and is not empty.
             custom_commmands.append(cleaned_command_string)
