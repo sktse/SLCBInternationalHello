@@ -98,10 +98,38 @@ def Init():
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = CommandSettings(SettingsFile)
 
+    initialize_input_greetings()
+    return
+
+
+def initialize_input_greetings():
+    InputGreetings = []
     for greeting in Greetings:
         InputGreetings.append(greeting.lower())
 
-    return
+    if not ScriptSettings.EnableCustomCommands:
+        return
+
+    custom_commands_string = ScriptSettings.CustomCommandStrings
+    log("Custom commands string:{}".format(custom_commands_string))
+
+    custom_commands = parse_custom_commands(custom_commands_string)
+    log("Parsed custom commands listed:{}".format(custom_commands))
+
+    for custom_command in custom_commands:
+        InputGreetings.append(custom_command)
+
+
+def parse_custom_commands(commands_string):
+    custom_commmands = []
+    commands_array = commands_string.split(";")
+    for command_string in commands_array:
+        cleaned_command_string = command_string.trim()
+        if cleaned_command_string:
+            # The input is valid and is not empty.
+            custom_commmands.append(cleaned_command_string)
+    return custom_commmands
+
 
 #---------------------------
 #   [Required] Execute Data / Process messages
@@ -182,6 +210,7 @@ def ReloadSettings(jsonData):
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings.__dict__ = json.loads(jsonData)
     ScriptSettings.Save(SettingsFile, Parent, ScriptName)
+    initialize_input_greetings()
     return
 
 #---------------------------

@@ -1,6 +1,7 @@
 import codecs
 import json
 
+
 class CommandSettings(object):
     def __init__(self, settingsfile=None):
         try:
@@ -10,6 +11,8 @@ class CommandSettings(object):
             self.Permission = "everyone"
             self.Info = ""
             self.Cooldown = 60
+            self.EnableCustomCommands = False
+            self.CustomCommandStrings = ""
             self.Debug = False
 
     def Reload(self, jsondata):

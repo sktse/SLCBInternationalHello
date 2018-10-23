@@ -31,6 +31,20 @@
     "tooltip": "How long the reply should go on cooldown for",
     "group": "Core"
   },
+  "EnableCustomCommands": {
+    "type": "checkbox",
+    "value": false,
+    "label": "Enable Custom Commands",
+    "tooltip": "Turn on to allow greetings to be triggered by the custom commands.",
+    "group": "Core"
+  },
+  "CustomCommandStrings": {
+    "type": "textbox",
+    "value": "",
+    "label": "Custom Commands",
+    "tooltip": "Your custom commands to trigger greetings. Use only single words separated by semi-colons. Commands are case insensitive.",
+    "group": "Core"
+  },
   "Debug": {
     "type": "checkbox",
     "value": false,
