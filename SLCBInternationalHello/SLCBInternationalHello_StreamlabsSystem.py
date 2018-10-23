@@ -119,6 +119,7 @@ def initialize_input_greetings():
 
     for custom_command in custom_commands:
         InputGreetings.append(custom_command)
+    return
 
 
 def parse_custom_commands(commands_string):
