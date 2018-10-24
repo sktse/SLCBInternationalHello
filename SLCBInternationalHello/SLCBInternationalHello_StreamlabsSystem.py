@@ -219,6 +219,7 @@ def ReloadSettings(jsonData):
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings.__dict__ = json.loads(jsonData)
     ScriptSettings.Save(SettingsFile, Parent, ScriptName)
+    log("Active script settings: {}".format(ScriptSettings.to_string()))
     initialize_input_greetings()
     return
 
