@@ -36,6 +36,7 @@ Greetings = [
     "Hello",
     "Greetings",
     "Hi",
+    "Hey",
     "Allo",  # French
     "Bonjour",  # French
     "Top-o-the-morning",
