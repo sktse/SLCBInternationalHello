@@ -104,10 +104,15 @@ def Init():
 
 
 def initialize_input_greetings():
-    InputGreetings = []
+    # Delete the contents of the array but NOT creating a new instance
+    # The pointer needs to be the same, but the contents nuked.
+    del InputGreetings[:]
     for greeting in Greetings:
         InputGreetings.append(greeting.lower())
 
+    log("Standard set of input greetings:{}".format(InputGreetings))
+
+    log("Is custom input commands enabled? {}".format(ScriptSettings.EnableCustomCommands))
     if not ScriptSettings.EnableCustomCommands:
         return
 
@@ -119,6 +124,8 @@ def initialize_input_greetings():
 
     for custom_command in custom_commands:
         InputGreetings.append(custom_command)
+
+    log("Extended set of input greetings:{}".format(InputGreetings))
     return
 
 
@@ -213,7 +220,6 @@ def ReloadSettings(jsonData):
     ScriptSettings.__dict__ = json.loads(jsonData)
     ScriptSettings.Save(SettingsFile, Parent, ScriptName)
     initialize_input_greetings()
-    log("Recognized input greetings:{}".format(InputGreetings))
     return
 
 #---------------------------
