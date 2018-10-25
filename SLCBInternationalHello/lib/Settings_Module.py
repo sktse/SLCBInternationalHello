@@ -1,6 +1,7 @@
 import codecs
 import json
 
+
 class CommandSettings(object):
     def __init__(self, settingsfile=None):
         try:
@@ -10,6 +11,8 @@ class CommandSettings(object):
             self.Permission = "everyone"
             self.Info = ""
             self.Cooldown = 60
+            self.EnableCustomCommands = False
+            self.CustomCommandStrings = ""
             self.Debug = False
 
     def Reload(self, jsondata):
@@ -26,3 +29,14 @@ class CommandSettings(object):
             if parent:
                 parent.Log(script_name, "Failed to save settings to file.: {}".format(e))
         return
+
+    def to_string(self):
+        self_dict = {
+            "Permission": self.Permission,
+            "Info": self.Info,
+            "Cooldown": self.Cooldown,
+            "EnableCustomCommands": self.EnableCustomCommands,
+            "CustomCommandStrings": self.CustomCommandStrings,
+            "Debug": self.Debug
+        }
+        return str(self_dict)
