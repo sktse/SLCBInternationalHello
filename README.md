@@ -6,9 +6,10 @@ A Streamlabs Chatbot script that will reply configure your bot to say hello to u
 * [Details](#details)
 * [Installation](#installation)
     * [Installing Python 2.7.13](#install_python)
-    * [Setting Python for Streamlabs Chatbot](#configure_python)
-    * [How to Import into Streamlabs Chatbot](#import_script)
-* [How to Configure the Script](#configuration)
+    * [Configuring Python for Streamlabs Chatbot](#configure_python)
+    * [Importing Scripts into Streamlabs Chatbot](#import_script)
+    * [Manually Uninstalling Scripts from Streamlabs Chatbot](#uninstall)
+* [Configuring the International Hello Script](#configuration)
     * [Permission](#configuration_permission)
     * [Info](#configuration_info)
     * [Cooldown](#configuration_cooldown)
@@ -40,7 +41,7 @@ A Streamlabs Chatbot script that will reply configure your bot to say hello to u
 
 <a name="configure_python"/>
 
-### Setting Python for Streamlabs Chatbot
+### Configuring Python for Streamlabs Chatbot
 * In Streamlabs Chatbot, select the Scripts tab on the left menu.
 * Select the Settings button ![settings button](https://user-images.githubusercontent.com/11049883/47404591-eae89500-d71b-11e8-8a4e-89b3902a2541.png) in the top right corner of the tab.
 
@@ -52,22 +53,35 @@ A Streamlabs Chatbot script that will reply configure your bot to say hello to u
 
 <a name="import_script"/>
 
-### How to Import into Streamlabs Chatbot
+### Importing Scripts into Streamlabs Chatbot
 * Streamlabs Chatbot supports importing scripts as Zip files.
 * To download the `SLCBInternationalHello` Zip file:
-    * Find all the releases by going to [releases tab](https://github.com/sktse/SLCBInternationalHello/releases)
-    * For the version you want to use, click the ![Source code (zip)](https://user-images.githubusercontent.com/11049883/47276930-ee97e280-d588-11e8-870c-b6892fcaefe1.png) link to get the Zip file.
+    * Find the latest release by go to the [latest release page](https://github.com/sktse/SLCBInternationalHello/releases/latest)
+    * Find all the releases, including older versions, by going to [releases tab](https://github.com/sktse/SLCBInternationalHello/releases)
+    * For the version you want to use, click the ![SLCBInternationalHello.zip](https://user-images.githubusercontent.com/11049883/47473761-fbfbd980-d7e1-11e8-874d-276b50d835b6.png) link to download the Streamlabs Chatbot compatible Zip file.
 
 ![Streamlabs Chatbot Screenshot](https://user-images.githubusercontent.com/11049883/47262578-37349a80-d4ba-11e8-9812-c3354bebc13d.png)
 * In Streamlabs Chatbot, select the Scripts tab on the left menu.
 * Select the Import button ![import button](https://user-images.githubusercontent.com/11049883/47262592-be820e00-d4ba-11e8-9dae-38d84aa4c774.png) in the top right corner of the tab.
 * This will open up a file explorer.  Select the downloaded Zip file.
 
+<a name="uninstall"/>
+
+### Manually Uninstalling Scripts from Streamlabs Chatbot
+* In your File Explorer, go to the folder where Streamlabs Chatbot is installed.
+    * By default, Streamlabs Chatbot will be installed in `C:\Users\<your user name>\AppData\Roaming\Streamlabs\Streamlabs Chatbot`
+* From the Streamlabs Chatbot folder, go to `\Services\Scripts`.  This is where Streamlabs Chatbot installs all the scripts.
+* Delete any folders that start with `SLCBInternationalHello`.
+* In the Streamlabs Chatbot Scripts panel, click the Reload button ![refresh button](https://user-images.githubusercontent.com/11049883/47473935-ce636000-d7e2-11e8-89b6-86fed4c6c92c.png) to upload your scripts.
+* The International Hello script should now be removed. 
+
 <a name="configuration"/>
 
-## How to Configure the Script
+## Configuring the International Hello Script
 
 ![script settings](https://user-images.githubusercontent.com/11049883/47404903-30599200-d71d-11e8-8f77-e14362160144.png)
+
+* Click the name of the script to open up the configuration panel on the left side of Streamlabs Chatbot.
 
 <a name="configuration_permission"/>
 
