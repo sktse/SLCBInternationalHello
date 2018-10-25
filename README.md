@@ -1,6 +1,7 @@
 # SLCBInternationalHello
 
-A Streamlabs Chatbot script that will reply configure your bot to say hello to users saying hello.
+* A Streamlabs Chatbot script that will reply configure your bot to say hello to users saying hello.
+* Download the latest version (v1.1.0) of the script [here](https://github.com/sktse/SLCBInternationalHello/releases/download/v1.1.0/SLCBInternationalHello.zip).
 
 ### Table of Contents
 * [Details](#details)
