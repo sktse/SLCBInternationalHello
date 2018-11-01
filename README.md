@@ -85,6 +85,8 @@
 ![script settings](https://user-images.githubusercontent.com/11049883/47404903-30599200-d71d-11e8-8f77-e14362160144.png)
 
 * Click the name of the script to open up the configuration panel on the left side of Streamlabs Chatbot.
+* When you make _any_ settings changes, you _must_ click the `Save Settings` button.
+    * Only when the `Save Settings` button is pressed with the settings take affect.
 
 <a name="configuration_permission"/>
 
