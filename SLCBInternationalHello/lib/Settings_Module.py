@@ -12,7 +12,7 @@ class CommandSettings(object):
             self.Info = ""
             self.Cooldown = 60
             self.EnableCustomCommands = False
-            self.CustomCommandStrings = ""
+            self.CustomCommandStrings = "!hello;morning;evening"
             self.Debug = False
 
     def Reload(self, jsondata):
