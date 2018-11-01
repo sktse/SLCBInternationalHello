@@ -38,6 +38,8 @@
 * Streamlabs Chatbot scripts require that you have Python 2.7.13 installed on your local machine.
 * You can download Python 2.7.13 from the official [Python Software Foundation Download page](https://www.python.org/downloads/release/python-2713/).
     * This is the direct link to the [Windows x86-64 MSI installer](https://www.python.org/ftp/python/2.7.13/python-2.7.13.amd64.msi).
+* Run the `msi` file to install Python 2.7.13. You can do this by double-clicking the file.
+* Go through the Python 2.7.13 installer wizard.
 * By default, the installer will save Python in `C:\Python27`
 
 <a name="configure_python"/>
