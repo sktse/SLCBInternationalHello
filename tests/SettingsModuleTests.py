@@ -14,5 +14,5 @@ class SettingsModuleTests(TestCase):
         self.assertEqual(settings.Info, "")
         self.assertEqual(settings.Cooldown, 60)
         self.assertFalse(settings.EnableCustomCommands)
-        self.assertEqual(settings.CustomCommandStrings, "")
+        self.assertEqual(settings.CustomCommandStrings, "Bananas")
         self.assertFalse(settings.Debug)
