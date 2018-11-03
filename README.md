@@ -1,5 +1,6 @@
 # SLCBInternationalHello
 
+[![Latest](https://img.shields.io/github/release/sktse/SLCBInternationalHello.svg)](https://github.com/sktse/SLCBInternationalHello/releases/latest/) 
 [![CircleCI](https://circleci.com/gh/sktse/SLCBInternationalHello/tree/master.svg?style=svg)](https://circleci.com/gh/sktse/SLCBInternationalHello/tree/master)
 
 * A Streamlabs Chatbot script that will reply configure your bot to say hello to users saying hello.
