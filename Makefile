@@ -8,7 +8,7 @@ install:
 test:
 	source ./venv/bin/activate; \
         cd SLCBInternationalHello; \
-	python -m pytest -v --log-cli-level=INFO ../tests/*.py -s;
+	python -m pytest -v --log-cli-level=INFO ../tests/*.py -s ${ARGS};
 
 release:
 	git archive -o SLCBInternationalHello.zip HEAD;

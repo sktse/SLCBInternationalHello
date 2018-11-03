@@ -16,4 +16,5 @@ venv/
 
 # Compiled files
 *.pyc
+test-reports/
 SLCBInternationalHello.zip
