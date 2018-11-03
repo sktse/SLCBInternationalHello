@@ -10,3 +10,9 @@ SLCB_InternationalHello/Settings/settings.json
 
 # PyCharm
 .idea
+
+# Virtual Environment
+venv/
+
+# Compiled files
+*.pyc
