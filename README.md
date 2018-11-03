@@ -1,5 +1,8 @@
 # SLCBInternationalHello
 
+[![Latest](https://img.shields.io/github/release/sktse/SLCBInternationalHello.svg)](https://github.com/sktse/SLCBInternationalHello/releases/latest/) 
+[![CircleCI](https://circleci.com/gh/sktse/SLCBInternationalHello/tree/master.svg?style=svg)](https://circleci.com/gh/sktse/SLCBInternationalHello/tree/master)
+
 * A Streamlabs Chatbot script that will reply configure your bot to say hello to users saying hello.
 * Download the latest version (v1.1.0) of the script [here](https://github.com/sktse/SLCBInternationalHello/releases/download/v1.1.0/SLCBInternationalHello.zip).
 
@@ -18,6 +21,7 @@
     * [Custom Commands](#configuration_commands)
     * [Enable Logging](#configuration_logging)
 * [Supported Greetings](#greetings)
+* [For Developers](#for-developers)
 
 <a name="details"/>
 
@@ -189,3 +193,11 @@
 | &#x0645;&#x0631;&#x062d;&#x0628;&#x0627; | marhabaan | Arabic |
 | &#x03b3;&#x03b5;&#x03b9;&#x03b1; &#x03c3;&#x03b1;&#x03c2; | geia sas | Greek |
 
+<a name="for-developers"/>
+
+## For Developers
+
+* To setup the project, run `make install`
+* To run tests, run `make test`
+* To build the Streamlabs Chatbot `zip` file for release, run `make release`
+* To reset the environment, run `make clean`

@@ -1,6 +1,6 @@
 # Files created during the runtime
-SLCB_InternationalHello/Settings/settings.js
-SLCB_InternationalHello/Settings/settings.json
+SLCBInternationalHello/Settings/settings.js
+SLCBInternationalHello/Settings/settings.json
 
 # OSX
 .DS_Store
@@ -10,3 +10,11 @@ SLCB_InternationalHello/Settings/settings.json
 
 # PyCharm
 .idea
+
+# Virtual Environment
+venv/
+
+# Compiled files
+*.pyc
+test-reports/
+SLCBInternationalHello.zip
