@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 install:
 	virtualenv venv --python=python; \
 	source ./venv/bin/activate; \
