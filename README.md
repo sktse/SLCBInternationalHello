@@ -198,3 +198,5 @@
 
 * To setup the project, run `make install`
 * To run tests, run `make test`
+* To build the Streamlabs Chatbot `zip` file for release, run `make release`
+* To reset the environment, run `make clean`
