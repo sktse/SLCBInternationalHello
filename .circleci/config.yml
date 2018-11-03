@@ -48,7 +48,7 @@ jobs:
 
       - store_artifacts:
           path: SLCBInternationalHello.zip
-          destination: release
+          destination: release/SLCBInternationalHello.zip
 
       - store_artifacts:
           path: test-reports
