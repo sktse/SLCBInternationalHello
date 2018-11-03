@@ -1,6 +1,6 @@
 # Files created during the runtime
-SLCB_InternationalHello/Settings/settings.js
-SLCB_InternationalHello/Settings/settings.json
+SLCBInternationalHello/Settings/settings.js
+SLCBInternationalHello/Settings/settings.json
 
 # OSX
 .DS_Store
@@ -16,3 +16,4 @@ venv/
 
 # Compiled files
 *.pyc
+SLCBInternationalHello.zip
