@@ -5,7 +5,7 @@ import json
 import os
 import random
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), "lib")) #point at lib folder for classes / references
+sys.path.append(os.path.join(os.path.dirname(__file__), "lib"))  # point at lib folder for classes / references
 
 import clr
 clr.AddReference("IronPython.SQLite.dll")
@@ -26,7 +26,7 @@ Version = "1.1.0"
 #   Define Global Variables
 #---------------------------
 global CommandConstant
-CommandConstant = "HelloReply"
+CommandConstant = "sktse-HelloReply"
 global SettingsFile
 SettingsFile = ""
 global ScriptSettings
@@ -83,6 +83,8 @@ Greetings = [
 ]
 global InputGreetings
 InputGreetings = []
+global CustomOutputGreetings
+CustomOutputGreetings = []
 
 
 #---------------------------
@@ -101,6 +103,10 @@ def Init():
 
     initialize_input_greetings()
     log("Recognized input greetings:{}".format(InputGreetings))
+
+    initialize_custom_output_greetings()
+    log("Recognized custom output greetings:{}".format(CustomOutputGreetings))
+
     return
 
 
@@ -127,6 +133,28 @@ def initialize_input_greetings():
         InputGreetings.append(custom_command)
 
     log("Extended set of input greetings:{}".format(InputGreetings))
+    return
+
+
+def initialize_custom_output_greetings():
+    # Delete the contents of the array but NOT creating a new instance
+    # The pointer needs to be the same, but the contents nuked.
+    del CustomOutputGreetings[:]
+
+    log("Is custom output commands enabled? {}".format(ScriptSettings.EnableCustomOutput))
+    if not ScriptSettings.EnableCustomOutput:
+        return
+
+    custom_outputs_string = ScriptSettings.CustomOutputStrings
+    log("Custom outputs string:{}".format(custom_outputs_string))
+
+    custom_outputs = parse_custom_commands(custom_outputs_string)
+    log("Parsed custom outputs listed:{}".format(custom_outputs))
+
+    for custom_output in custom_outputs:
+        CustomOutputGreetings.append(custom_output)
+
+    log("Custom set of output greetings:{}".format(CustomOutputGreetings))
     return
 
 
@@ -169,7 +197,7 @@ def Execute(data):
         return
 
     if first_param in InputGreetings:
-        greeting_message = PickGreeting(data.User)
+        greeting_message = PickRandomGreeting(data.User)
         log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
         Parent.SendStreamMessage(greeting_message)
 
@@ -185,8 +213,64 @@ def log(message):
     return
 
 
-def PickGreeting(user):
-    pool_length = len(Greetings)
+def PickRandomGreeting(user):
+    greeting_set = Greetings if PickGreetingType() else CustomOutputGreetings
+    greeting = PickGreeting(greeting_set)
+    return FormatGreeting(greeting, user)
+
+
+def PickGreetingType():
+    """
+    CustomOutputPercentage is between 1 and 100
+    if the roll is less than CustomOutputPercentage, then it is custom greeting.  Otherwise default greeting.
+    Example:
+        * CustomOutputPercentage == 1 percent, roll is 0 ==> Show custom greeting.
+        * CustomOutputPercentage == 1 percent, roll is 1+ ==> Show default greeting.
+
+    This means, show custom greeting is
+    ```
+    is_custom_greeting = randomIndex < CustomOutputPercentage
+    ```
+
+    Therefore, show the default greeting is
+    ```
+    is_default_greeting = not is_custom_greeting
+    is_default_greeting = not randomIndex < CustomOutputPercentage
+    is_default_greeting = randomIndex >= CustomOutputPercentage
+    ```
+
+    :return: True if the default greeting. False for custom greeting.
+    """
+
+    if not ScriptSettings.EnableCustomOutput:
+        # if custom output greetings is disabled, just exit out immediately with default greetings.
+        return True
+
+    if ScriptSettings.CustomOutputPercentage == 0:
+        # if custom output greetings is set to 0%, just exit out immediately with default greetings.
+        return True
+
+    # This is not very random. Let's see if we can increase that.
+    random_array = [random.randint(0, 10000) % 100 for p in range(0, 20)]
+    log("Random type selection pool: {}".format(random_array))
+    random_index = random.choice(random_array)
+
+    is_reverse_index = random.randint(0, 1)
+    if is_reverse_index:
+        random_index = 99 - random_index
+    is_default_greeting = random_index >= ScriptSettings.CustomOutputPercentage
+    log("Is greeting type default? {}".format(is_default_greeting))
+
+    return is_default_greeting
+
+
+def PickGreeting(greeting_set):
+    """
+    Randomly picks a greeting from the given set of greetings
+    :param greeting_set: The array of greetings
+    :return: A single greeting string
+    """
+    pool_length = len(greeting_set)
     random_array = [random.randint(0, pool_length * pool_length) % pool_length for p in range(0, 20)]
     log("Random selection pool: {}".format(random_array))
     random_index = random.choice(random_array)
@@ -195,10 +279,16 @@ def PickGreeting(user):
     if is_reverse_index:
         random_index = pool_length - random_index - 1
 
-    greeting = Greetings[random_index]
+    greeting = greeting_set[random_index]
+    return greeting
+
+
+def FormatGreeting(greeting, user):
     if user:
         greeting = "{} @{}".format(greeting, user)
     return greeting
+
+
 
 #---------------------------
 #   [Required] Tick method (Gets called during every iteration even when there is no incoming data)
@@ -217,11 +307,12 @@ def Parse(parseString, userid, username, targetid, targetname, message):
 #---------------------------
 def ReloadSettings(jsonData):
     # Execute json reloading here
-    SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
+    SettingsFile = os.path.join(os.path.dirname(__file__), "Settings", "settings.json")
     ScriptSettings.__dict__ = json.loads(jsonData)
     ScriptSettings.Save(SettingsFile, Parent, ScriptName)
     log("Active script settings: {}".format(ScriptSettings.to_string()))
     initialize_input_greetings()
+    initialize_custom_output_greetings()
     return
 
 #---------------------------

@@ -1,7 +1,3 @@
-# Files created during the runtime
-SLCBInternationalHello/Settings/settings.js
-SLCBInternationalHello/Settings/settings.json
-
 # OSX
 .DS_Store
 
@@ -16,5 +12,16 @@ venv/
 
 # Compiled files
 *.pyc
+
+# Files created during the runtime
+SLCBInternationalHello/Settings/settings.js
+SLCBInternationalHello/Settings/settings.json
+
+# Testing temp files
 test-reports/
+tests/settings_files/settings-test.json
+tests/settings_files/settings-test.js
+
+# Release building
+tmp/
 SLCBInternationalHello.zip
