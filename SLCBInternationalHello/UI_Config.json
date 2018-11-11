@@ -36,14 +36,38 @@
     "value": false,
     "label": "Enable Custom Commands",
     "tooltip": "Turn on to allow greetings to be triggered by the custom commands.",
-    "group": "Core"
+    "group": "Customization"
   },
   "CustomCommandStrings": {
     "type": "textbox",
     "value": "",
     "label": "Custom Commands",
     "tooltip": "Your custom commands to trigger greetings. Use only single words separated by semi-colons. Commands are case insensitive.",
-    "group": "Core"
+    "group": "Customization"
+  },
+  "EnableCustomOutput": {
+    "type": "checkbox",
+    "value": false,
+    "label": "Enable Custom Outputs",
+    "tooltip": "Turn on to use your custom greetings when the command is triggered.",
+    "group": "Customization"
+  },
+  "CustomOutputPercentage": {
+    "type": "slider",
+    "value": 10,
+    "min": 0,
+    "max": 100,
+    "ticks": 1,
+    "label": "Custom Output Percentage",
+    "tooltip": "The percentage chance to trigger a custom command.",
+    "group": "Customization"
+  },
+  "CustomOutputStrings": {
+    "type": "textbox",
+    "value": "",
+    "label": "Custom Outputs",
+    "tooltip": "Your custom output greetings. All phrases must be separated by semi-colons.",
+    "group": "Customization"
   },
   "Debug": {
     "type": "checkbox",
