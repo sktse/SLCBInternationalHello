@@ -220,15 +220,48 @@ def PickRandomGreeting(user):
 
 
 def PickGreetingType():
-    random_array = [random.randint(0, 99) for p in range(0, 20)]
+    """
+    CustomOutputPercentage is between 1 and 100
+    if the roll is less than CustomOutputPercentage, then it is custom greeting.  Otherwise default greeting.
+    Example:
+        * CustomOutputPercentage == 1 percent, roll is 0 ==> Show custom greeting.
+        * CustomOutputPercentage == 1 percent, roll is 1+ ==> Show default greeting.
+
+    This means, show custom greeting is
+    ```
+    is_custom_greeting = randomIndex < CustomOutputPercentage
+    ```
+
+    Therefore, show the default greeting is
+    ```
+    is_default_greeting = not is_custom_greeting
+    is_default_greeting = not randomIndex < CustomOutputPercentage
+    is_default_greeting = randomIndex >= CustomOutputPercentage
+    ```
+
+    :return: True if the default greeting. False for custom greeting.
+    """
+
+    if not ScriptSettings.EnableCustomOutput:
+        # if custom output greetings is disabled, just exit out immediately with default greetings.
+        return True
+
+    if ScriptSettings.CustomOutputPercentage == 0:
+        # if custom output greetings is set to 0%, just exit out immediately with default greetings.
+        return True
+
+    # This is not very random. Let's see if we can increase that.
+    random_array = [random.randint(0, 10000) % 100 for p in range(0, 20)]
     log("Random type selection pool: {}".format(random_array))
     random_index = random.choice(random_array)
 
     is_reverse_index = random.randint(0, 1)
     if is_reverse_index:
         random_index = 99 - random_index
+    is_default_greeting = random_index >= ScriptSettings.CustomOutputPercentage
+    log("Is greeting type default? {}".format(is_default_greeting))
 
-    return random_index >= ScriptSettings.CustomOutputPercentage
+    return is_default_greeting
 
 
 def PickGreeting(greeting_set):
