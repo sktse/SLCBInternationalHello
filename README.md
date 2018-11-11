@@ -177,6 +177,8 @@
 | Dia dhuit | | Gaelic |
 | G'day | | Australian |
 | Aloha | | Hawaiian |
+| Tere | | Estonian |
+| Howdy | | American |
 | xin ch&#xe0;o | | Vietnamese |
 | Dzie&#x0144; dobry | | Polish |
 | Ol&#xe1; | | Portugese |
