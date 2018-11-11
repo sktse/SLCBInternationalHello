@@ -18,3 +18,7 @@ venv/
 *.pyc
 test-reports/
 SLCBInternationalHello.zip
+
+# Testing temp files
+tests/settings_files/settings-test.json
+tests/settings_files/settings-test.js

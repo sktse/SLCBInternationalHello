@@ -1,0 +1,8 @@
+﻿{
+  "Info": "hk_47",
+  "EnableCustomCommands": true,
+  "CustomCommandStrings": "!hello;",
+  "Permission": "user_specific",
+  "Cooldown": 600,
+  "Debug": true
+}
