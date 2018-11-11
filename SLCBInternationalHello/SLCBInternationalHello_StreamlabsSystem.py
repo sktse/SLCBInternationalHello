@@ -65,6 +65,8 @@ Greetings = [
     "Dia dhuit",  # Gaelic
     "G'day",  # Australian
     "Aloha",  # Hawaiian
+    "Tere",  # Estonian
+    "Howdy",  # American
     u'xin ch\xe0o',  # Vietnamese
     u'Dzie\u0144 dobry',  # Polish
     u'Ol\xe1',  # Portugese
