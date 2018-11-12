@@ -194,6 +194,8 @@
 | &#x1230;&#x120b;&#x121d; | selami | Amharic |
 | &#x0645;&#x0631;&#x062d;&#x0628;&#x0627; | marhabaan | Arabic |
 | &#x03b3;&#x03b5;&#x03b9;&#x03b1; &#x03c3;&#x03b1;&#x03c2; | geia sas | Greek |
+| Ked&#x1EE5; | | Igbo |
+| Bawo ni | | Yoruba |
 
 <a name="for-developers"/>
 
