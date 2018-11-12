@@ -65,6 +65,8 @@ Greetings = [
     "Dia dhuit",  # Gaelic
     "G'day",  # Australian
     "Aloha",  # Hawaiian
+    "Tere",  # Estonian
+    "Howdy",  # American
     u'xin ch\xe0o',  # Vietnamese
     u'Dzie\u0144 dobry',  # Polish
     u'Ol\xe1',  # Portugese
@@ -80,6 +82,8 @@ Greetings = [
     u'\u1230\u120b\u121d',  # Amharic - selami
     u'\u0645\u0631\u062d\u0628\u0627',  # Arabic - marhabaan
     u'\u03b3\u03b5\u03b9\u03b1 \u03c3\u03b1\u03c2',  # Greek - geia sas
+    u'Ked\u1EE5',  # Igbo - Nigeria
+    u'Bawo ni',  # Yoruba - Nigeria
 ]
 global InputGreetings
 InputGreetings = []
