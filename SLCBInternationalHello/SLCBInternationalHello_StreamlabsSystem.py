@@ -12,24 +12,20 @@ clr.AddReference("IronPython.Modules.dll")
 
 from better_random import BetterRandom
 from settings import ScriptSettings
+from constants import ScriptConstants
 #---------------------------
 #   [Required] Script Information
 #---------------------------
-ScriptName = "International Hello"
-Website = "https://github.com/sktse"
-Description = "Hello! Is it me you are looking for?"
-Creator = "sktse"
-Version = "1.1.0"
+ScriptName = ScriptConstants.SCRIPT_NAME
+Website = ScriptConstants.WEBSITE
+Description = ScriptConstants.DESCRIPTION
+Creator = ScriptConstants.CREATOR
+Version = ScriptConstants.VERSION
 
 #---------------------------
 #   Define Global Variables
 #---------------------------
-global CommandConstant
-CommandConstant = "sktse-HelloReply"
-global SettingsFile
-SettingsFile = ""
-global ScriptSettings
-ScriptSettings = ScriptSettings()
+script_settings = ScriptSettings()
 global Greetings
 Greetings = [
     "Hello",
@@ -101,8 +97,8 @@ def Init():
         os.makedirs(directory)
 
     #   Load settings
-    SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
-    ScriptSettings = ScriptSettings(SettingsFile)
+    settings_file = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
+    script_settings = ScriptSettings(settings_file)
 
     initialize_input_greetings()
     log("Recognized input greetings:{}".format(InputGreetings))
@@ -122,11 +118,11 @@ def initialize_input_greetings():
 
     log("Standard set of input greetings:{}".format(InputGreetings))
 
-    log("Is custom input commands enabled? {}".format(ScriptSettings.EnableCustomCommands))
-    if not ScriptSettings.EnableCustomCommands:
+    log("Is custom input commands enabled? {}".format(script_settings.EnableCustomCommands))
+    if not script_settings.EnableCustomCommands:
         return
 
-    custom_commands_string = ScriptSettings.CustomCommandStrings
+    custom_commands_string = script_settings.CustomCommandStrings
     log("Custom commands string:{}".format(custom_commands_string))
 
     custom_commands = parse_custom_commands(custom_commands_string)
@@ -144,11 +140,11 @@ def initialize_custom_output_greetings():
     # The pointer needs to be the same, but the contents nuked.
     del CustomOutputGreetings[:]
 
-    log("Is custom output commands enabled? {}".format(ScriptSettings.EnableCustomOutput))
-    if not ScriptSettings.EnableCustomOutput:
+    log("Is custom output commands enabled? {}".format(script_settings.EnableCustomOutput))
+    if not script_settings.EnableCustomOutput:
         return
 
-    custom_outputs_string = ScriptSettings.CustomOutputStrings
+    custom_outputs_string = script_settings.CustomOutputStrings
     log("Custom outputs string:{}".format(custom_outputs_string))
 
     custom_outputs = parse_custom_commands(custom_outputs_string)
@@ -188,14 +184,14 @@ def Execute(data):
         log("User [{}] did not say hello".format(data.User))
         return
 
-    if not Parent.HasPermission(data.User, ScriptSettings.Permission, ScriptSettings.Info):
+    if not Parent.HasPermission(data.User, script_settings.Permission, script_settings.Info):
         # The user does not have permission to trigger this command
         log("User [{}] does not have permission".format(data.User))
         return
 
-    if Parent.IsOnUserCooldown(ScriptName, CommandConstant, data.User):
+    if Parent.IsOnUserCooldown(ScriptName, ScriptConstants.SCRIPT_KEY, data.User):
         # The user is on cool down for this command
-        cooldown_remaining = Parent.GetUserCooldownDuration(ScriptName, CommandConstant, data.User)
+        cooldown_remaining = Parent.GetUserCooldownDuration(ScriptName, ScriptConstants.SCRIPT_KEY, data.User)
         log("User [{}] is still on cooldown for: {}".format(data.User, cooldown_remaining))
         return
 
@@ -204,14 +200,14 @@ def Execute(data):
         log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
         Parent.SendStreamMessage(greeting_message)
 
-        cooldown_in_seconds = int(ScriptSettings.Cooldown) * 60
-        Parent.AddUserCooldown(ScriptName, CommandConstant, data.User, cooldown_in_seconds)
+        cooldown_in_seconds = int(script_settings.Cooldown) * 60
+        Parent.AddUserCooldown(ScriptName, ScriptConstants.SCRIPT_KEY, data.User, cooldown_in_seconds)
 
     return
 
 
 def log(message):
-    if ScriptSettings.Debug:
+    if script_settings.Debug:
         Parent.Log(ScriptName, message)
     return
 
@@ -245,16 +241,16 @@ def PickGreetingType():
     :return: True if the default greeting. False for custom greeting.
     """
 
-    if not ScriptSettings.EnableCustomOutput:
+    if not script_settings.EnableCustomOutput:
         # if custom output greetings is disabled, just exit out immediately with default greetings.
         return True
 
-    if ScriptSettings.CustomOutputPercentage == 0:
+    if script_settings.CustomOutputPercentage == 0:
         # if custom output greetings is set to 0%, just exit out immediately with default greetings.
         return True
 
     random_index = BetterRandom.random(100)
-    is_default_greeting = random_index >= ScriptSettings.CustomOutputPercentage
+    is_default_greeting = random_index >= script_settings.CustomOutputPercentage
     log("Is greeting type default? {}".format(is_default_greeting))
 
     return is_default_greeting
@@ -295,9 +291,9 @@ def Parse(parseString, userid, username, targetid, targetname, message):
 def ReloadSettings(jsonData):
     # Execute json reloading here
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings", "settings.json")
-    ScriptSettings.__dict__ = json.loads(jsonData)
-    ScriptSettings.save(SettingsFile, Parent, ScriptName)
-    log("Active script settings: {}".format(ScriptSettings.to_string()))
+    script_settings.__dict__ = json.loads(jsonData)
+    script_settings.save(SettingsFile, Parent, ScriptName)
+    log("Active script settings: {}".format(script_settings.to_string()))
     initialize_input_greetings()
     initialize_custom_output_greetings()
     return
