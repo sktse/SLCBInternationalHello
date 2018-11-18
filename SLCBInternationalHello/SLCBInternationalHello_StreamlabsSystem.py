@@ -13,6 +13,7 @@ clr.AddReference("IronPython.Modules.dll")
 from better_random import BetterRandom
 from settings import ScriptSettings
 from constants import ScriptConstants
+
 #---------------------------
 #   [Required] Script Information
 #---------------------------
@@ -158,7 +159,7 @@ def Execute(data):
         return
 
     if first_param in InputGreetings:
-        greeting_message = PickRandomGreeting(data.User)
+        greeting_message = pick_random_greeting(data.User)
         log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
         parent.SendStreamMessage(greeting_message)
 
@@ -174,13 +175,13 @@ def log(message):
     return
 
 
-def PickRandomGreeting(user):
-    greeting_set = Greetings if PickGreetingType() else CustomOutputGreetings
-    greeting = PickGreeting(greeting_set)
-    return FormatGreeting(greeting, user)
+def pick_random_greeting(user):
+    greeting_set = Greetings if pick_greeting_type() else CustomOutputGreetings
+    greeting = pick_greeting(greeting_set)
+    return format_greeting(greeting, user)
 
 
-def PickGreetingType():
+def pick_greeting_type():
     """
     CustomOutputPercentage is between 1 and 100
     if the roll is less than CustomOutputPercentage, then it is custom greeting.  Otherwise default greeting.
@@ -218,7 +219,7 @@ def PickGreetingType():
     return is_default_greeting
 
 
-def PickGreeting(greeting_set):
+def pick_greeting(greeting_set):
     """
     Randomly picks a greeting from the given set of greetings
     :param greeting_set: The array of greetings
@@ -229,7 +230,7 @@ def PickGreeting(greeting_set):
     return greeting
 
 
-def FormatGreeting(greeting, user):
+def format_greeting(greeting, user):
     if user:
         greeting = "{} @{}".format(greeting, user)
     return greeting
