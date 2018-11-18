@@ -15,6 +15,7 @@ from better_random import (
     GreetingPicker,
 )
 from constants import ScriptConstants
+from parsers import InputParser
 from script_logger import StreamlabsChatbotScriptLogger
 from settings import ScriptSettings
 
@@ -153,7 +154,7 @@ def Execute(data):
         return
 
     # This is the first word that the User typed
-    first_param = data.GetParam(0).lower().strip()
+    first_param = InputParser.parse(data.GetParam(0))
 
     if first_param not in InputGreetings:
         # The user did not say a greeting
