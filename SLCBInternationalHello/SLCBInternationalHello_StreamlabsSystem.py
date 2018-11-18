@@ -10,7 +10,10 @@ import clr
 clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
 
-from better_random import BetterRandom
+from better_random import (
+    BetterRandom,
+    GreetingPicker,
+)
 from constants import ScriptConstants
 from script_logger import StreamlabsChatbotScriptLogger
 from settings import ScriptSettings
@@ -180,61 +183,20 @@ def Execute(data):
 
 
 def pick_random_greeting(user):
-    greeting_set = Greetings if pick_greeting_type() else CustomOutputGreetings
-    greeting = pick_greeting(greeting_set)
-    return format_greeting(greeting, user)
-
-
-def pick_greeting_type():
     """
-    CustomOutputPercentage is between 1 and 100
-    if the roll is less than CustomOutputPercentage, then it is custom greeting.  Otherwise default greeting.
-    Example:
-        * CustomOutputPercentage == 1 percent, roll is 0 ==> Show custom greeting.
-        * CustomOutputPercentage == 1 percent, roll is 1+ ==> Show default greeting.
-
-    This means, show custom greeting is
-    ```
-    is_custom_greeting = randomIndex < CustomOutputPercentage
-    ```
-
-    Therefore, show the default greeting is
-    ```
-    is_default_greeting = not is_custom_greeting
-    is_default_greeting = not randomIndex < CustomOutputPercentage
-    is_default_greeting = randomIndex >= CustomOutputPercentage
-    ```
-
-    :return: True if the default greeting. False for custom greeting.
+    Picks a random greeting and formats it with the user's name.
+    :param user: The calling user
+    :return: The greeting string with the user's name
     """
+    picker = GreetingPicker(
+        Greetings,
+        CustomOutputGreetings,
+        script_settings.EnableCustomOutput,
+        script_settings.CustomOutputPercentage,
+        logger
+    )
 
-    if not script_settings.EnableCustomOutput:
-        # if custom output greetings is disabled, just exit out immediately with default greetings.
-        return True
-
-    if script_settings.CustomOutputPercentage == 0:
-        # if custom output greetings is set to 0%, just exit out immediately with default greetings.
-        return True
-
-    random_index = BetterRandom.random(100)
-    is_default_greeting = random_index >= script_settings.CustomOutputPercentage
-    logger.log("Is greeting type default? {}".format(is_default_greeting))
-
-    return is_default_greeting
-
-
-def pick_greeting(greeting_set):
-    """
-    Randomly picks a greeting from the given set of greetings
-    :param greeting_set: The array of greetings
-    :return: A single greeting string
-    """
-    random_index = BetterRandom.random(len(greeting_set))
-    greeting = greeting_set[random_index]
-    return greeting
-
-
-def format_greeting(greeting, user):
+    greeting = picker.pick()
     if user:
         greeting = "{} @{}".format(greeting, user)
     return greeting
