@@ -33,8 +33,6 @@ class CommandSettings(object):
         "Debug": False,
     }
 
-    # TODO Json settings file upgrader
-    # do an attr check on missing properties and initialize them
     def __init__(self, settingsfile=None):
         try:
             with codecs.open(settingsfile, encoding="utf-8-sig", mode="r") as f:

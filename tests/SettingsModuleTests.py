@@ -69,3 +69,16 @@ class SettingsModuleTests(TestCase):
         js_path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-test.js")
         self.assertTrue(os.path.isfile(json_path))
         self.assertTrue(os.path.isfile(js_path))
+
+    def test_to_string__outputs_strings(self):
+        settings = CommandSettings()
+        self.assertEqual(settings.to_string(),
+                         "{'Info': '', 'EnableCustomCommands': False, 'CustomOutputPercentage': 10, "
+                         "'CustomCommandStrings': '!hello;morning;evening', 'Permission': 'everyone', "
+                         "'CustomOutputStrings': \"Well hello Mr. Fancy Pants!;Say 'hello' to my little friend!;"
+                         "Hello, my name is Inigo Montoya. You killed my father. Prepare to die.;Heeeeere\'s Johnny!;"
+                         "You had me at 'Hello'.;You talkin' to me?;Live long and prosper.;Here's looking at you, kid.;"
+                         "Frankly, my dear, I don't give a damn.;Shane. Shane. Come back!;Mrs. Robinson, you're trying "
+                         "to seduce me. Aren't you?;Yo, Adrian!;May the Force be with you.;That'll do, pig, that'll do."
+                         ";Hello, is it me you are looking for?;\", 'Cooldown': 60, 'Debug': False, "
+                         "'EnableCustomOutput': False}")
