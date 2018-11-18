@@ -2,7 +2,7 @@ import codecs
 import json
 
 
-class CommandSettings(object):
+class ScriptSettings(object):
     # Yeah... I know the values are different type.
     # But it is better to have the defaults in one place than spread out all over in multiple functions.
     DEFAULT_VALUES_DICTIONARY = {

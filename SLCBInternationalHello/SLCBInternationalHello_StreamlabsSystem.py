@@ -11,9 +11,7 @@ clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
 
 from better_random import BetterRandom
-
-#   Import your Settings class
-from Settings_Module import CommandSettings
+from settings import ScriptSettings
 #---------------------------
 #   [Required] Script Information
 #---------------------------
@@ -31,7 +29,7 @@ CommandConstant = "sktse-HelloReply"
 global SettingsFile
 SettingsFile = ""
 global ScriptSettings
-ScriptSettings = CommandSettings()
+ScriptSettings = ScriptSettings()
 global Greetings
 Greetings = [
     "Hello",
@@ -104,7 +102,7 @@ def Init():
 
     #   Load settings
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
-    ScriptSettings = CommandSettings(SettingsFile)
+    ScriptSettings = ScriptSettings(SettingsFile)
 
     initialize_input_greetings()
     log("Recognized input greetings:{}".format(InputGreetings))
