@@ -15,7 +15,10 @@ from better_random import (
     GreetingPicker,
 )
 from constants import ScriptConstants
-from parsers import InputParser
+from parsers import (
+    InputParser,
+    SemicolonSeparatedParser,
+)
 from script_logger import StreamlabsChatbotScriptLogger
 from settings import ScriptSettings
 
@@ -100,7 +103,7 @@ def initialize_input_greetings():
     custom_commands_string = script_settings.CustomCommandStrings
     logger.log("Custom commands string:{}".format(custom_commands_string))
 
-    custom_commands = parse_custom_commands(custom_commands_string)
+    custom_commands = SemicolonSeparatedParser.parse(custom_commands_string)
     logger.log("Parsed custom commands listed:{}".format(custom_commands))
 
     for custom_command in custom_commands:
@@ -122,7 +125,7 @@ def initialize_custom_output_greetings():
     custom_outputs_string = script_settings.CustomOutputStrings
     logger.log("Custom outputs string:{}".format(custom_outputs_string))
 
-    custom_outputs = parse_custom_commands(custom_outputs_string)
+    custom_outputs = SemicolonSeparatedParser.parse(custom_outputs_string)
     logger.log("Parsed custom outputs listed:{}".format(custom_outputs))
 
     for custom_output in custom_outputs:
@@ -130,17 +133,6 @@ def initialize_custom_output_greetings():
 
     logger.log("Custom set of output greetings:{}".format(CustomOutputGreetings))
     return
-
-
-def parse_custom_commands(commands_string):
-    custom_commmands = []
-    commands_array = commands_string.split(";")
-    for command_string in commands_array:
-        cleaned_command_string = command_string.strip()
-        if cleaned_command_string:
-            # The input is valid and is not empty.
-            custom_commmands.append(cleaned_command_string)
-    return custom_commmands
 
 
 #---------------------------

@@ -4,7 +4,10 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../SLCBInternationalHel
 
 from unittest import TestCase
 
-from parsers import InputParser
+from parsers import (
+    InputParser,
+    SemicolonSeparatedParser,
+)
 
 
 class InputParserTests(TestCase):
@@ -23,3 +26,21 @@ class InputParserTests(TestCase):
     def test_trailing_whitespace_after_punctuation__returns_lower_and_trimmed(self):
         result = InputParser.parse("I must look like a yeti in this getup              !")
         self.assertEqual(result, "i must look like a yeti in this getup")
+
+
+class SemicolonSeparatedParserTests(TestCase):
+    def test_semicolon_string(self):
+        result = SemicolonSeparatedParser.parse("!hello;morning;evening")
+        self.assertListEqual(result, ["!hello", "morning", "evening"])
+
+    def test_semicolon_string_with_whitespace(self):
+        result = SemicolonSeparatedParser.parse("!hello          ;morning;        evening")
+        self.assertListEqual(result, ["!hello", "morning", "evening"])
+
+    def test_semicolon_string_with_empty_semicolons(self):
+        result = SemicolonSeparatedParser.parse("!hello  ;;morning;     ;;;;evening")
+        self.assertListEqual(result, ["!hello", "morning", "evening"])
+
+    def test_with_no_semicolons(self):
+        result = SemicolonSeparatedParser.parse("I'm melting like a snow cone in Phoenix.")
+        self.assertListEqual(result, ["I'm melting like a snow cone in Phoenix."])
