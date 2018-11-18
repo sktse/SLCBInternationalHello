@@ -43,11 +43,11 @@ class ScriptSettings(object):
 
         self.initialize_defaults()
 
-    def Reload(self, jsondata):
+    def reload(self, jsondata):
         self.__dict__ = json.loads(jsondata, encoding="utf-8")
         return
 
-    def Save(self, settingsfile, parent=None, script_name=None):
+    def save(self, settingsfile, parent=None, script_name=None):
         try:
             with codecs.open(settingsfile, encoding="utf-8-sig", mode="w+") as f:
                 json.dump(self.__dict__, f, encoding="utf-8")

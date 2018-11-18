@@ -62,7 +62,7 @@ class ScriptSettingsTests(TestCase):
         mock_parent = Mock()
 
         json_path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-test.json")
-        settings.Save(json_path, mock_parent, "Ash")
+        settings.save(json_path, mock_parent, "Ash")
         mock_parent.assert_not_called()
 
         # Saving creates the JSON and javascript files.
