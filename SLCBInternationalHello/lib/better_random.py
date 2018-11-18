@@ -75,7 +75,7 @@ class GreetingPicker(object):
             # if custom output greetings is set to 0%, just exit out immediately with default greetings.
             return True
 
-        random_index = BetterRandom.random(100)
+        random_index = BetterRandom.random(100, self.logger)
         is_default_greeting = random_index >= self.custom_percentage
         self._log("Is greeting type default? {}".format(is_default_greeting))
 
@@ -88,6 +88,6 @@ class GreetingPicker(object):
         :return: A single value from the set
         """
 
-        random_index = BetterRandom.random(len(values))
+        random_index = BetterRandom.random(len(values), self.logger)
         value = values[random_index]
         return value
