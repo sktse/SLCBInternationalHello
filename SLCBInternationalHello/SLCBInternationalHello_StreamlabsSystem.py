@@ -3,13 +3,14 @@
 #---------------------------
 import json
 import os
-import random
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib"))  # point at lib folder for classes / references
 
 import clr
 clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
+
+from better_random import BetterRandom
 
 #   Import your Settings class
 from Settings_Module import CommandSettings
@@ -254,14 +255,7 @@ def PickGreetingType():
         # if custom output greetings is set to 0%, just exit out immediately with default greetings.
         return True
 
-    # This is not very random. Let's see if we can increase that.
-    random_array = [random.randint(0, 10000) % 100 for p in range(0, 20)]
-    log("Random type selection pool: {}".format(random_array))
-    random_index = random.choice(random_array)
-
-    is_reverse_index = random.randint(0, 1)
-    if is_reverse_index:
-        random_index = 99 - random_index
+    random_index = BetterRandom.random(100)
     is_default_greeting = random_index >= ScriptSettings.CustomOutputPercentage
     log("Is greeting type default? {}".format(is_default_greeting))
 
@@ -274,15 +268,7 @@ def PickGreeting(greeting_set):
     :param greeting_set: The array of greetings
     :return: A single greeting string
     """
-    pool_length = len(greeting_set)
-    random_array = [random.randint(0, pool_length * pool_length) % pool_length for p in range(0, 20)]
-    log("Random selection pool: {}".format(random_array))
-    random_index = random.choice(random_array)
-
-    is_reverse_index = random.randint(0, 1)
-    if is_reverse_index:
-        random_index = pool_length - random_index - 1
-
+    random_index = BetterRandom.random(len(greeting_set))
     greeting = greeting_set[random_index]
     return greeting
 
@@ -291,7 +277,6 @@ def FormatGreeting(greeting, user):
     if user:
         greeting = "{} @{}".format(greeting, user)
     return greeting
-
 
 
 #---------------------------
