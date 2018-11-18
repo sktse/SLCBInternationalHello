@@ -66,7 +66,6 @@ class GreetingPicker(object):
 
         :return: True if the default greeting. False for custom greeting.
         """
-
         if not self.custom_enabled:
             # if custom output greetings is disabled, just exit out immediately with default greetings.
             return True

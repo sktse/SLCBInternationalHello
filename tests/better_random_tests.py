@@ -4,6 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../SLCBInternationalHel
 
 from unittest import TestCase
 from mock import (
+    call,
     Mock,
     patch,
 )
@@ -17,7 +18,7 @@ from better_random import (
 class GreetingPickerTests(TestCase):
     def setUp(self):
         self.custom_greetings = [
-            "Well hello Mr. Fancy Pants!;",  # Army of Darkness (1992)
+            "Well hello Mr. Fancy Pants!",  # Army of Darkness (1992)
         ]
         self.standard_greetings = [
             "Top-o-the-morning",
@@ -62,3 +63,32 @@ class GreetingPickerTests(TestCase):
             result = picker.pick_greeting_type()
             self.assertFalse(result)
             mock_random.assert_called_once_with(100, self.mock_logger)
+
+    def test_pick__with_100_percent_custom__picks_custom(self):
+        picker = GreetingPicker(
+            self.standard_greetings,
+            self.custom_greetings,
+            True,
+            100,
+            self.mock_logger,
+        )
+        with patch.object(BetterRandom, 'random', wraps=BetterRandom.random) as mock_random:
+            result = picker.pick()
+            mock_random.assert_has_calls([
+                call(100, self.mock_logger),
+                call(1, self.mock_logger),
+            ])
+        self.assertEqual(result, "Well hello Mr. Fancy Pants!")
+
+    def test_pick__with_custom_disabled__picks_custom(self):
+        picker = GreetingPicker(
+            self.standard_greetings,
+            self.custom_greetings,
+            False,
+            100,
+            self.mock_logger,
+        )
+        with patch.object(BetterRandom, 'random', wraps=BetterRandom.random) as mock_random:
+            result = picker.pick()
+            mock_random.assert_called_once_with(1, self.mock_logger)
+        self.assertEqual(result, "Top-o-the-morning")
