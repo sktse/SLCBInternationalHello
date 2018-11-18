@@ -57,6 +57,15 @@ def Init():
     return
 
 
+def get_parent():
+    """
+    Wrapper function for the Parent object.
+    It is magically injected by Streamlabs Chatbot
+    :return: The Parent object
+    """
+    return Parent
+
+
 def initialize_input_greetings():
     del Greetings[:]
     Greetings.extend(ScriptConstants.DEFAULT_GREETINGS)
@@ -123,6 +132,8 @@ def parse_custom_commands(commands_string):
 #   [Required] Execute Data / Process messages
 #---------------------------
 def Execute(data):
+    parent = get_parent()
+
     if not data.IsChatMessage():
         # Only interested in picking up chat messages
         return
@@ -135,31 +146,31 @@ def Execute(data):
         log("User [{}] did not say hello".format(data.User))
         return
 
-    if not Parent.HasPermission(data.User, script_settings.Permission, script_settings.Info):
+    if not parent.HasPermission(data.User, script_settings.Permission, script_settings.Info):
         # The user does not have permission to trigger this command
         log("User [{}] does not have permission".format(data.User))
         return
 
-    if Parent.IsOnUserCooldown(ScriptName, ScriptConstants.SCRIPT_KEY, data.User):
+    if parent.IsOnUserCooldown(ScriptName, ScriptConstants.SCRIPT_KEY, data.User):
         # The user is on cool down for this command
-        cooldown_remaining = Parent.GetUserCooldownDuration(ScriptName, ScriptConstants.SCRIPT_KEY, data.User)
+        cooldown_remaining = parent.GetUserCooldownDuration(ScriptName, ScriptConstants.SCRIPT_KEY, data.User)
         log("User [{}] is still on cooldown for: {}".format(data.User, cooldown_remaining))
         return
 
     if first_param in InputGreetings:
         greeting_message = PickRandomGreeting(data.User)
         log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
-        Parent.SendStreamMessage(greeting_message)
+        parent.SendStreamMessage(greeting_message)
 
         cooldown_in_seconds = int(script_settings.Cooldown) * 60
-        Parent.AddUserCooldown(ScriptName, ScriptConstants.SCRIPT_KEY, data.User, cooldown_in_seconds)
+        parent.AddUserCooldown(ScriptName, ScriptConstants.SCRIPT_KEY, data.User, cooldown_in_seconds)
 
     return
 
 
 def log(message):
     if script_settings.Debug:
-        Parent.Log(ScriptName, message)
+        get_parent().Log(ScriptName, message)
     return
 
 
@@ -243,7 +254,7 @@ def ReloadSettings(jsonData):
     # Execute json reloading here
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings", "settings.json")
     script_settings.__dict__ = json.loads(jsonData)
-    script_settings.save(SettingsFile, Parent, ScriptName)
+    script_settings.save(SettingsFile, get_parent(), ScriptName)
     log("Active script settings: {}".format(script_settings.to_string()))
     initialize_input_greetings()
     initialize_custom_output_greetings()
