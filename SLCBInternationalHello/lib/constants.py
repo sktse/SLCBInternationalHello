@@ -1,4 +1,4 @@
-class ScriptConstants:
+class ScriptConstants(object):
     # Required Streamlabs Chatbot constants
     SCRIPT_NAME = "International Hello"
     WEBSITE = "https://github.com/sktse"
