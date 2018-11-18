@@ -2,7 +2,7 @@ import codecs
 import json
 
 
-class CommandSettings(object):
+class ScriptSettings(object):
     # Yeah... I know the values are different type.
     # But it is better to have the defaults in one place than spread out all over in multiple functions.
     DEFAULT_VALUES_DICTIONARY = {
@@ -33,8 +33,6 @@ class CommandSettings(object):
         "Debug": False,
     }
 
-    # TODO Json settings file upgrader
-    # do an attr check on missing properties and initialize them
     def __init__(self, settingsfile=None):
         try:
             with codecs.open(settingsfile, encoding="utf-8-sig", mode="r") as f:
@@ -45,11 +43,11 @@ class CommandSettings(object):
 
         self.initialize_defaults()
 
-    def Reload(self, jsondata):
+    def reload(self, jsondata):
         self.__dict__ = json.loads(jsondata, encoding="utf-8")
         return
 
-    def Save(self, settingsfile, parent=None, script_name=None):
+    def save(self, settingsfile, parent=None, script_name=None):
         try:
             with codecs.open(settingsfile, encoding="utf-8-sig", mode="w+") as f:
                 json.dump(self.__dict__, f, encoding="utf-8")
