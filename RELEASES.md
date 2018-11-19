@@ -9,6 +9,7 @@
 * Adds greetings in Estonian, Igbo, Yoruba, and American.
 * Adds support to trigger the custom greeting when the last character in the command is a punctuation.
 * Adds clarification to Streamlabs Chatbot Python installation.
+* Adds settings JSON upgrading. The script will upgrade the settings JSON to the current version and preserve already set values.
 * Adds developer hygiene things
     * Adds unit tests! Yay!
     * Adds continuous integration! Continuously Yay!
