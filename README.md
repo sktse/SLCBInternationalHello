@@ -4,7 +4,7 @@
 [![CircleCI](https://circleci.com/gh/sktse/SLCBInternationalHello/tree/master.svg?style=svg)](https://circleci.com/gh/sktse/SLCBInternationalHello/tree/master)
 
 * A Streamlabs Chatbot script that will reply configure your bot to say hello to users saying hello.
-* Download the latest version (v1.1.0) of the script [here](https://github.com/sktse/SLCBInternationalHello/releases/download/v1.1.0/SLCBInternationalHello.zip).
+* Download the latest version (v1.2.0) of the script [here](https://github.com/sktse/SLCBInternationalHello/releases/download/v1.2.0/SLCBInternationalHello.zip).
 
 ### Table of Contents
 * [Details](#details)
