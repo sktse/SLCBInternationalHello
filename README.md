@@ -14,12 +14,18 @@
     * [Importing Scripts into Streamlabs Chatbot](#import_script)
     * [Manually Uninstalling Scripts from Streamlabs Chatbot](#uninstall)
 * [Configuring the International Hello Script](#configuration)
-    * [Permission](#configuration_permission)
-    * [Info](#configuration_info)
-    * [Cooldown](#configuration_cooldown)
-    * [Enable Custom Commands](#configuration_enable_commands)
-    * [Custom Commands](#configuration_commands)
-    * [Enable Logging](#configuration_logging)
+    * [Core Settings Group](#configuration_group_core)
+        * [Permission](#configuration_permission)
+        * [Info](#configuration_info)
+        * [Cooldown](#configuration_cooldown)
+    * [Customization Settings Group](#configuration_group_customization)
+        * [Enable Custom Commands](#configuration_enable_commands)
+        * [Custom Commands](#configuration_commands)
+        * [Enable Custom Outputs](#configuration_enable_outputs)
+        * [Custom Output Percentage](#configuration_output_percentage)
+        * [Custom Outputs](#configuration_output_greetings)
+    * [Developer Settings Group](#configuration_group_developer)
+        * [Enable Logging](#configuration_logging)
 * [Supported Greetings](#greetings)
 * [For Developers](#for-developers)
 
@@ -69,7 +75,7 @@
 
 ![Streamlabs Chatbot Screenshot](https://user-images.githubusercontent.com/11049883/47262578-37349a80-d4ba-11e8-9812-c3354bebc13d.png)
 * In Streamlabs Chatbot, select the Scripts tab on the left menu.
-* Select the Import button ![import button](https://user-images.githubusercontent.com/11049883/47262592-be820e00-d4ba-11e8-9dae-38d84aa4c774.png) in the top right corner of the tab.
+* Select the Import button ![import button](https://user-images.githubusercontent.com/11049883/48686710-71618c80-eb8b-11e8-838c-4bf83bde9438.png) in the top right corner of the tab.
 * This will open up a file explorer.  Select the downloaded Zip file.
 
 <a name="uninstall"/>
@@ -86,15 +92,21 @@
 
 ## Configuring the International Hello Script
 
-![script settings](https://user-images.githubusercontent.com/11049883/47404903-30599200-d71d-11e8-8f77-e14362160144.png)
-
 * Click the name of the script to open up the configuration panel on the left side of Streamlabs Chatbot.
 * When you make _any_ settings changes, you _must_ click the `Save Settings` button.
     * Only when the `Save Settings` button is pressed with the settings take affect.
 
+<a name="configuration_group_core"/>
+
+### Core Settings Group
+
+![Core settings group](https://user-images.githubusercontent.com/11049883/48686851-43c91300-eb8c-11e8-84a0-50c33a638ce6.png)
+
+* The Core settings group contains the basic operational configurations for the script.
+
 <a name="configuration_permission"/>
 
-### Permission
+#### Permission
 * The Permission dropdown uses the standard Streamlab Chatbot permission levels.
 * The possible options are:
     * `everyone`
@@ -105,35 +117,78 @@
 
 <a name="configuration_info"/>
 
-### Info
+#### Info
 * The Info textbox is for when Permission is set to `user_specific`.
 * Enter the user name that you specifically want to have access to this script.
 
 <a name="configuration_cooldown"/>
 
-### Cooldown
+#### Cooldown
 * The Cooldown slider is to set the duration between replies to a specific user.
-* The Cooldown is set to a long period of time to stop the Chatbot from spamming the channel when _other_ people reply to a user initally greeting the chat.
+* The Cooldown is set to a long period of time to stop the Chatbot from spamming the channel when _other_ people reply to a user initially greeting the chat.
+
+<a name="configuration_group_customization"/>
+
+### Customization Settings Group
+
+![Customization settings group](https://user-images.githubusercontent.com/11049883/48686970-fdc07f00-eb8c-11e8-804b-baf84b5f2ef8.png)
+
+* The Customization settings group contains the configuration that allow you to personalize the scripts behaviour.
 
 <a name="configuration_enable_commands"/>
 
-### Enable Custom Commands
+#### Enable Custom Commands
 * The Enable Custom Commands checkbox turns on custom input commands in the **Custom Commands** section.
 * Enable this feature if you want the script to be triggered by your own custom commands.
 
 <a name="configuration_commands"/>
 
-### Custom Commands
-* The Custom Commands textox is for when Enable Custom Commands checkbox is turned on.
+#### Custom Commands
+* The Custom Commands textbox is for when **Enable Custom Commands** checkbox is turned on.
 * Enter your own custom input commands that will trigger a greeting response.
 * Your custom input commands must:
     * Be a single word
     * Be semi-colon separated for multiple custom commands
 * Example: When you enter `!hello;banana;heyo!`, when a user enters `!hello`, `banana`, or `heyo!` into chat, the script will reply with a greeting.
 
+<a name="configuration_enable_outputs"/>
+
+#### Enable Custom Outputs
+* The Enable Custom Outputs checkbox turns on custom output greetings in the **Custom Outputs** section.
+* Enable this feature if you want the script to reply with your own custom greetings whenever a user says hello.
+
+<a name="configuration_output_percentage" />
+
+#### Custom Output Percentage
+* The Custom Output Percentage slider is for when **Enabled Custom Outputs** checkbox is turned on.
+* Set the value to the percentage of replies you want to be picked from your pool of custom greetings.
+* The values range from 0% (i.e. never picking from your pool of custom greetings) to 100% (i.e. always picking from your pool of custom greetings).
+
+<a name="configuration_output_greetings" />
+
+#### Custom Outputs
+* The Custom Outputs textbox is for when **Enabled Custom Outputs** checkbox is turned on.
+* Enter your own custom output greetings that will be sent to the user whenever the user triggers a greeting.
+* Your custom output commands must:
+     * Be sem-colon separated for multiple custom commands
+     * Can be multiple words
+* Example: When you enter `You had me at hello;Say hello to my little friend;Live long and prosper`, the pool of custom output greetings are:
+    * `You had me at hello`
+    * `Say hello to my little friend`
+    * `Live long and prosper`
+* When a custom greeting is triggered, it will randomly select one from the custom greetings pool. 
+
+<a name="configuration_group_developer"/>
+
+### Developer Settings Group
+
+![Developer settings group](https://user-images.githubusercontent.com/11049883/48687635-462d6c00-eb90-11e8-8bde-109d2125e432.png)
+
+* The Developer settings group contains the configurations for developers to debug the script. Please only use if you are an expert!
+
 <a name="configuration_logging"/>
 
-### Enable Logging
+#### Enable Logging
 * The Enable Logging checkbox turns on very aggressive logging for this script.
 * Enable this to help the development and debugging the script.
 * It is _not recommended_ you leave this on because it will make your log files large.
