@@ -1,7 +1,7 @@
 # Releases
 
 ## v1.2.0 - Porchetta
-* Link: [v1.2.0 - Porchetta]()
+* Link: [v1.2.0 - Porchetta](https://github.com/sktse/SLCBInternationalHello/releases/tag/v1.2.0)
 * Adds the ability to add custom output greetings.
     * Custom output greetings are set with a semi-colon separated string.
     * Each greeting can be multiple words.
