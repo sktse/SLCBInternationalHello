@@ -14,6 +14,7 @@ from better_random import (
     BetterRandom,
     GreetingPicker,
 )
+from detectors import GreetingDetector
 from constants import ScriptConstants
 from parsers import (
     InputParser,
@@ -45,7 +46,8 @@ global InputGreetings
 InputGreetings = []
 global CustomOutputGreetings
 CustomOutputGreetings = []
-
+global greeting_detector
+greeting_detector = GreetingDetector()
 
 #---------------------------
 #   [Required] Initialize Data (Only called on load)
@@ -82,6 +84,8 @@ def initialize_script():
 
     initialize_custom_output_greetings()
     logger.log("Recognized custom output greetings:{}".format(CustomOutputGreetings))
+
+    initialize_greeting_detector()
 
 
 def initialize_input_greetings():
@@ -135,6 +139,12 @@ def initialize_custom_output_greetings():
     return
 
 
+def initialize_greeting_detector():
+    logger.log("Initializing greeting detector...")
+    greeting_detector.initialize(InputGreetings)
+    logger.log("Detector lookup: {}".format(greeting_detector.greetings_lookup))
+
+
 #---------------------------
 #   [Required] Execute Data / Process messages
 #---------------------------
@@ -145,10 +155,10 @@ def Execute(data):
         # Only interested in picking up chat messages
         return
 
-    # This is the first word that the User typed
-    first_param = InputParser.parse(data.GetParam(0))
+    # Run the inputs through the greeting detector
+    is_greeting = greeting_detector.is_greeting(data)
 
-    if first_param not in InputGreetings:
+    if not is_greeting:
         # The user did not say a greeting
         logger.log("User [{}] did not say hello".format(data.User))
         return
@@ -164,7 +174,7 @@ def Execute(data):
         logger.log("User [{}] is still on cooldown for: {}".format(data.User, cooldown_remaining))
         return
 
-    if first_param in InputGreetings:
+    if is_greeting:
         greeting_message = pick_random_greeting(data.User)
         logger.log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
         parent.SendStreamMessage(greeting_message)
