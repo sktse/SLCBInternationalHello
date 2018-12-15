@@ -16,11 +16,8 @@ class GreetingDetectorTests(TestCase):
             lower_greeting = greeting.lower()
             self.greetings.append(lower_greeting)
 
-        self.detector = GreetingDetector(
-            standard_greetings=self.greetings,
-            custom_greetings=[],
-            custom_enabled=False
-        )
+        self.detector = GreetingDetector()
+        self.detector.initialize(self.greetings)
 
     def test_constructor__builds_lookup_table(self):
         self.assertEqual(len(self.detector.greetings_lookup[1]), 41)

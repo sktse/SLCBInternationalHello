@@ -1,11 +1,11 @@
 class GreetingDetector(object):
-    def __init__(self, standard_greetings, custom_greetings, custom_enabled):
-        self.standard_greetings = standard_greetings
-        self.custom_greetings = custom_greetings
-        self.custom_enabled = custom_enabled
+    def __init__(self):
+        self.greetings = []
+        self.greetings_lookup = {}
 
-        self.greetings_lookup = self.build_lookup(self.standard_greetings)
-        self.custom_greeting_lookup = self.build_lookup(self.custom_greetings)
+    def initialize(self, greetings):
+        self.greetings = greetings
+        self.greetings_lookup = self.build_lookup(self.greetings)
 
     def build_lookup(self, greetings):
         greetings_lookup = {}
