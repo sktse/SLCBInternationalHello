@@ -7,13 +7,7 @@ from constants import ScriptConstants
 
 
 class HelloBot:
-    def __init__(self,
-                 parent,
-                 script_settings,
-                 greeting_detector,
-                 greetings,
-                 custom_output_greetings,
-                 logger):
+    def __init__(self):
         self.parent = None
         self.script_settings = None
         self.greeting_detector = None
@@ -21,9 +15,8 @@ class HelloBot:
         self.custom_output_greetings = None
         self.logger = None
         self.greeting_picker = None
-        self.initialize(parent, script_settings, greeting_detector, logger, greetings, custom_output_greetings)
 
-    def initialize(self, parent, script_settings, greeting_detector, logger, greetings, custom_output_greetings):
+    def initialize(self, parent, script_settings, greeting_detector, greetings, custom_output_greetings, logger):
         self.parent = parent
         self.script_settings = script_settings
         self.greeting_detector = greeting_detector

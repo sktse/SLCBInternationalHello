@@ -11,7 +11,6 @@ from mock import (
 from bots import HelloBot
 from constants import ScriptConstants
 from detectors import GreetingDetector
-from script_logger import StreamlabsChatbotScriptLogger
 from settings import ScriptSettings
 
 
@@ -29,16 +28,16 @@ class HelloBotTests(TestCase):
         self.detector.initialize(self.greetings)
 
         self.custom_output_greetings = []
-        # self.logger = StreamlabsChatbotScriptLogger(is_debug=True)
         self.logger = MagicMock()
 
-        self.bot = HelloBot(
+        self.bot = HelloBot()
+        self.bot.initialize(
             parent=self.mock_parent,
             script_settings=self.script_settings,
             greeting_detector=self.detector,
             greetings=self.greetings,
             custom_output_greetings=self.custom_output_greetings,
-            logger=self.logger
+            logger=self.logger,
         )
 
         self.mock_data = MagicMock()
