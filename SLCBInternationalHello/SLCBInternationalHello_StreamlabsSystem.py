@@ -149,8 +149,6 @@ def initialize_greeting_detector():
 #   [Required] Execute Data / Process messages
 #---------------------------
 def Execute(data):
-    parent = get_parent()
-
     if not data.IsChatMessage():
         # Only interested in picking up chat messages
         return
@@ -162,6 +160,8 @@ def Execute(data):
         # The user did not say a greeting
         logger.log("User [{}] did not say hello".format(data.User))
         return
+
+    parent = get_parent()
 
     if not parent.HasPermission(data.User, script_settings.Permission, script_settings.Info):
         # The user does not have permission to trigger this command
