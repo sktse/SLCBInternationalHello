@@ -39,7 +39,7 @@ class GreetingDetectorTests(TestCase):
     def test_is_greeting__two_word_greeting__returns_true(self):
         mock_data = MagicMock()
         mock_data.GetParamCount.return_value = 2
-        mock_data.GetParam.side_effect = ["Dia", "Dia", "Dhuit"] # Polish
+        mock_data.GetParam.side_effect = ["Dia", "Dia", "Dhuit"]  # Polish
         result = self.detector.is_greeting(mock_data)
         self.assertTrue(result)
 

@@ -14,7 +14,7 @@ from detectors import GreetingDetector
 from settings import ScriptSettings
 
 
-class HelloBotTests(TestCase):
+class HelloBotIntegrationTests(TestCase):
     def setUp(self):
         self.mock_parent = MagicMock()
         self.script_settings = ScriptSettings()
@@ -88,6 +88,27 @@ class HelloBotTests(TestCase):
         self.mock_data.IsChatMessage.return_value = True
         self.mock_data.GetParamCount.return_value = 1
         self.mock_data.GetParam.return_value = "aloha"
+        self.mock_parent.HasPermission.return_value = True
+        self.mock_parent.IsOnUserCooldown.return_value = False
+
+        self.bot.greeting_picker = MagicMock()
+        self.bot.greeting_picker.pick.return_value = "Moin moin"
+
+        self.bot.execute(self.mock_data)
+
+        self.logger.log.assert_called_once_with("User [rogukalth] triggered the reply: Moin moin @rogukalth")
+        self.mock_parent.SendStreamMessage.assert_called_once_with("Moin moin @rogukalth")
+        self.mock_parent.AddUserCooldown.assert_called_once_with(
+            "International Hello",
+            "sktse-HelloReply",
+            "rogukalth",
+            3600,
+        )
+
+    def test_execute__with_multi_word_greeting__sends_greeting(self):
+        self.mock_data.IsChatMessage.return_value = True
+        self.mock_data.GetParamCount.return_value = 2
+        self.mock_data.GetParam.side_effect = ["Dia", "Dia", "Dhuit"]  # Polish
         self.mock_parent.HasPermission.return_value = True
         self.mock_parent.IsOnUserCooldown.return_value = False
 
