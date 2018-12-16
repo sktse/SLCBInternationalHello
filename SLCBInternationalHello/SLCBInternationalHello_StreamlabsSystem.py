@@ -10,7 +10,6 @@ import clr
 clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
 
-from better_random import GreetingPicker
 from bots import HelloBot
 from detectors import GreetingDetector
 from constants import ScriptConstants
