@@ -33,15 +33,19 @@ class ScriptSettings(object):
         "Debug": False,
     }
 
-    def __init__(self, settingsfile=None):
+    def __init__(self, settings_file=None):
+        if settings_file:
+            self.initialize(settings_file)
+
+        self.initialize_defaults()
+
+    def initialize(self, settings_file):
         try:
-            with codecs.open(settingsfile, encoding="utf-8-sig", mode="r") as f:
+            with codecs.open(settings_file, encoding="utf-8-sig", mode="r") as f:
                 self.__dict__ = json.load(f, encoding="utf-8")
         except:
             # Expect the open to fail if the file does not exist
             pass
-
-        self.initialize_defaults()
 
     def reload(self, jsondata):
         self.__dict__ = json.loads(jsondata, encoding="utf-8")

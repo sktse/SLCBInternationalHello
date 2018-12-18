@@ -19,8 +19,8 @@ SLCBInternationalHello/Settings/settings.json
 
 # Testing temp files
 test-reports/
-tests/settings_files/settings-test.json
-tests/settings_files/settings-test.js
+tests/settings_files/settings-saved.json
+tests/settings_files/settings-saved.js
 
 # Release building
 tmp/
