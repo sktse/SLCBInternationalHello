@@ -10,10 +10,8 @@ import clr
 clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
 
-from better_random import (
-    BetterRandom,
-    GreetingPicker,
-)
+from bots import HelloBot
+from detectors import GreetingDetector
 from constants import ScriptConstants
 from parsers import (
     InputParser,
@@ -45,7 +43,10 @@ global InputGreetings
 InputGreetings = []
 global CustomOutputGreetings
 CustomOutputGreetings = []
-
+global greeting_detector
+greeting_detector = GreetingDetector()
+global hello_bot
+hello_bot = HelloBot()
 
 #---------------------------
 #   [Required] Initialize Data (Only called on load)
@@ -82,6 +83,17 @@ def initialize_script():
 
     initialize_custom_output_greetings()
     logger.log("Recognized custom output greetings:{}".format(CustomOutputGreetings))
+
+    initialize_greeting_detector()
+
+    hello_bot.initialize(
+        parent=Parent,
+        script_settings=script_settings,
+        greeting_detector=greeting_detector,
+        greetings=Greetings,
+        custom_output_greetings=CustomOutputGreetings,
+        logger=logger,
+    )
 
 
 def initialize_input_greetings():
@@ -135,65 +147,17 @@ def initialize_custom_output_greetings():
     return
 
 
+def initialize_greeting_detector():
+    logger.log("Initializing greeting detector...")
+    greeting_detector.initialize(InputGreetings)
+    logger.log("Detector lookup: {}".format(greeting_detector.greetings_lookup))
+
+
 #---------------------------
 #   [Required] Execute Data / Process messages
 #---------------------------
 def Execute(data):
-    parent = get_parent()
-
-    if not data.IsChatMessage():
-        # Only interested in picking up chat messages
-        return
-
-    # This is the first word that the User typed
-    first_param = InputParser.parse(data.GetParam(0))
-
-    if first_param not in InputGreetings:
-        # The user did not say a greeting
-        logger.log("User [{}] did not say hello".format(data.User))
-        return
-
-    if not parent.HasPermission(data.User, script_settings.Permission, script_settings.Info):
-        # The user does not have permission to trigger this command
-        logger.log("User [{}] does not have permission".format(data.User))
-        return
-
-    if parent.IsOnUserCooldown(ScriptName, ScriptConstants.SCRIPT_KEY, data.User):
-        # The user is on cool down for this command
-        cooldown_remaining = parent.GetUserCooldownDuration(ScriptName, ScriptConstants.SCRIPT_KEY, data.User)
-        logger.log("User [{}] is still on cooldown for: {}".format(data.User, cooldown_remaining))
-        return
-
-    if first_param in InputGreetings:
-        greeting_message = pick_random_greeting(data.User)
-        logger.log("User [{}] triggered the reply: {}".format(data.User, greeting_message))
-        parent.SendStreamMessage(greeting_message)
-
-        cooldown_in_seconds = int(script_settings.Cooldown) * 60
-        parent.AddUserCooldown(ScriptName, ScriptConstants.SCRIPT_KEY, data.User, cooldown_in_seconds)
-
-    return
-
-
-def pick_random_greeting(user):
-    """
-    Picks a random greeting and formats it with the user's name.
-    :param user: The calling user
-    :return: The greeting string with the user's name
-    """
-    picker = GreetingPicker(
-        Greetings,
-        CustomOutputGreetings,
-        script_settings.EnableCustomOutput,
-        script_settings.CustomOutputPercentage,
-        logger
-    )
-
-    greeting = picker.pick()
-    if user:
-        greeting = "{} @{}".format(greeting, user)
-    return greeting
-
+    hello_bot.execute(data)
 
 #---------------------------
 #   [Required] Tick method (Gets called during every iteration even when there is no incoming data)
