@@ -60,7 +60,7 @@ def Init():
 
     #   Load settings
     settings_file = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
-    script_settings = ScriptSettings(settings_file)
+    script_settings.initialize(settings_file)
 
     initialize_script()
     return

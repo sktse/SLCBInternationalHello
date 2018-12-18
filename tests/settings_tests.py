@@ -57,16 +57,34 @@ class ScriptSettingsTests(TestCase):
         self.assertEqual(settings.CustomOutputPercentage, 10)
         self.assertEqual(settings.CustomOutputStrings, self.expected_custom_commands_strings)
 
+    def test_initialize__loads_file(self):
+        settings = ScriptSettings()
+        # This is already verified to load the default values
+
+        json_path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-test.json")
+        settings.initialize(json_path)
+
+        # The settings will have the values from the JSON file.
+        self.assertEqual(settings.Permission, "everyone")
+        self.assertEqual(settings.Info, "Banana")
+        self.assertEqual(settings.Cooldown, 10)
+        self.assertTrue(settings.EnableCustomCommands)
+        self.assertEqual(settings.CustomCommandStrings, "!hello;morning;evening;banana")
+        self.assertFalse(settings.EnableCustomOutput)
+        self.assertEqual(settings.CustomOutputPercentage, 15)
+        self.assertEqual(settings.CustomOutputStrings, self.expected_custom_commands_strings)
+        self.assertTrue(settings.Debug)
+
     def test_save__saves_file(self):
         settings = ScriptSettings()
         mock_parent = Mock()
 
-        json_path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-test.json")
+        json_path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-saved.json")
         settings.save(json_path, mock_parent, "Ash")
         mock_parent.assert_not_called()
 
         # Saving creates the JSON and javascript files.
-        js_path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-test.js")
+        js_path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-saved.js")
         self.assertTrue(os.path.isfile(json_path))
         self.assertTrue(os.path.isfile(js_path))
 
