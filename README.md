@@ -257,6 +257,7 @@
 ## For Developers
 
 * To setup the project, run `make install`
+    * For Windows development environments, you can run `make install-win` to additionally install the .NET dependencies.
 * To run tests, run `make test`
 * To build the Streamlabs Chatbot `zip` file for release, run `make release`
 * To reset the environment, run `make clean`
