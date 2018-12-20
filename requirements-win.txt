@@ -1,0 +1,4 @@
+# Windows only. This is a Python adapter for .NET
+# What Streamlabs Chatbot uses to integrate.
+# Get us the `clr` package
+pythonnet==2.3.0

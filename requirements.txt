@@ -1,6 +1,3 @@
 mock==2.0.0
 pytest==3.9.3
 
-# What Streamlabs Chatbot uses to integrate.
-# Get us the `clr` package
-pythonnet==2.3.0
