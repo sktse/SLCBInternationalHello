@@ -283,6 +283,7 @@
 
 #### For Non-Windows Systems
 * A way to get `pythonnet` to install properly in the virtual environment has not bee found.
+    * The instructions provided by `pythonnet` [here](https://github.com/pythonnet/pythonnet/wiki/Troubleshooting-on-Windows,-Linux,-and-OSX#installation-instructions-for-homebrew-cask-mono-mdk) have not worked.
 * Testing is limited to "testing on prod" by installing the script in Streamlabs ChatBot.
 * If you do not have access to the CircleCI artifacts, you can manually build the release zip file.
 * Run `make release` to build the zip file.
