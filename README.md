@@ -28,6 +28,9 @@
         * [Enable Logging](#configuration_logging)
 * [Supported Greetings](#greetings)
 * [For Developers](#for-developers)
+    * [Running the Script](#running-script)
+        * [For Windows Systems](#running-script-windows)
+        * [For Non-Windows Systems](#running-script-linux)
 
 <a name="details"/>
 
@@ -257,6 +260,31 @@
 ## For Developers
 
 * To setup the project, run `make install`
+    * For Windows development environments, you can run `make install-win` to additionally install the .NET dependencies.
 * To run tests, run `make test`
 * To build the Streamlabs Chatbot `zip` file for release, run `make release`
 * To reset the environment, run `make clean`
+
+<a name="running-script"/>
+
+### Running the Script
+
+* Streamlabs ChatBot is a .Net application that uses the `pythonnet` module to integrate with Python.
+* This shows up in the script as `import clr`.
+
+<a name="running-script-windows"/>
+
+#### For Windows Systems
+* Run `make install-win` to install the `pythonnet` module.
+* You should be able to directly run the script now.
+    * This is currently untested. Please provide feedback!
+
+<a name="running-script-linux"/>
+
+#### For Non-Windows Systems
+* A way to get `pythonnet` to install properly in the virtual environment has not bee found.
+    * The instructions provided by `pythonnet` [here](https://github.com/pythonnet/pythonnet/wiki/Troubleshooting-on-Windows,-Linux,-and-OSX#installation-instructions-for-homebrew-cask-mono-mdk) have not worked.
+* Testing is limited to "testing on prod" by installing the script in Streamlabs ChatBot.
+* If you do not have access to the CircleCI artifacts, you can manually build the release zip file.
+* Run `make release` to build the zip file.
+* Import it via the [Importing Scripts into Streamlabs Chatbot](#import_script) 

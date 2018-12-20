@@ -5,6 +5,12 @@ install:
 	source ./venv/bin/activate; \
 	pip install -r requirements.txt;
 
+install-win:
+	virtualenv venv --python=python; \
+	source ./venv/bin/activate; \
+	pip install -r requirements.txt; \
+	pip install -r requirements-win.txt;
+
 test:
 	source ./venv/bin/activate; \
         cd SLCBInternationalHello; \
