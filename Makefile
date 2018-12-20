@@ -27,6 +27,10 @@ release:
 	cd ..; \
 	rm -rf ./tmp;
 
+build-readme:
+	source ./venv/bin/activate; \
+    python ./builds/build_readme.py;
+
 clean:
 	rm SLCBInternationalHello.zip; \
 	rm -rf ./venv;

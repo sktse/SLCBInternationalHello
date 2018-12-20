@@ -25,3 +25,4 @@ tests/settings_files/settings-saved.js
 # Release building
 tmp/
 SLCBInternationalHello.zip
+README.html

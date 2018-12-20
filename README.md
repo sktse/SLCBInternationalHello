@@ -62,6 +62,7 @@
 * Select the Settings button ![settings button](https://user-images.githubusercontent.com/11049883/47404591-eae89500-d71b-11e8-8a4e-89b3902a2541.png) in the top right corner of the tab.
 
 ![global script settings](https://user-images.githubusercontent.com/11049883/47404567-d1dfe400-d71b-11e8-9628-c76fe6942bc4.png)
+
 * This will open up the Global Scrip Settings page for Streamlabs Chatbot
 * Click the **Pick Folder** under the **Python 2.7.13 Directory** section
 * This will open up a file explorer.  Select the folder of `\Python27\lib` folder.
@@ -77,6 +78,7 @@
     * For the version you want to use, click the ![SLCBInternationalHello.zip](https://user-images.githubusercontent.com/11049883/47473761-fbfbd980-d7e1-11e8-874d-276b50d835b6.png) link to download the Streamlabs Chatbot compatible Zip file.
 
 ![Streamlabs Chatbot Screenshot](https://user-images.githubusercontent.com/11049883/47262578-37349a80-d4ba-11e8-9812-c3354bebc13d.png)
+
 * In Streamlabs Chatbot, select the Scripts tab on the left menu.
 * Select the Import button ![import button](https://user-images.githubusercontent.com/11049883/48686710-71618c80-eb8b-11e8-838c-4bf83bde9438.png) in the top right corner of the tab.
 * This will open up a file explorer.  Select the downloaded Zip file.
