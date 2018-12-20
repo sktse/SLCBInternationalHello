@@ -195,3 +195,12 @@ def Unload():
 #---------------------------
 def ScriptToggled(state):
     return
+
+
+def open_readme():
+    """
+    The function exposed to the Settings UI to open the README file
+    """
+    readme_file = os.path.join(os.path.dirname(__file__), "..", "README.html")
+    os.startfile(readme_file)
+    return
