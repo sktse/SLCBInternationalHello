@@ -1,5 +1,13 @@
 {
   "output_file": "Settings/settings.json",
+  "button_readme": {
+    "type": "button",
+    "label": "Open README",
+    "tooltip": "Opens the readme of this script.",
+    "function": "open_readme",
+    "wsevent": "",
+    "group": "Core"
+  },
   "Permission": {
     "type": "dropdown",
     "value": "everyone",

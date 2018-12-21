@@ -42,6 +42,11 @@ jobs:
             make ARGS="--junitxml=../test-reports/junit.xml" test;
 
       - run:
+          name: Building README
+          command: |
+            make build-readme;
+
+      - run:
           name: Packaging Project
           command: |
             make release;
@@ -49,6 +54,10 @@ jobs:
       - store_artifacts:
           path: SLCBInternationalHello.zip
           destination: release/SLCBInternationalHello.zip
+
+      - store_artifacts:
+          path: README.html
+          destination: release/README.html
 
       - store_artifacts:
           path: test-reports
