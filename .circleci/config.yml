@@ -56,7 +56,7 @@ jobs:
           destination: release/SLCBInternationalHello.zip
 
       - store_artifacts:
-          path: ./SLCBInternationalHello/README.html
+          path: README.html
           destination: release/README.html
 
       - store_artifacts:
