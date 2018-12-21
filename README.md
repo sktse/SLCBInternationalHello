@@ -105,9 +105,16 @@
 
 ### Core Settings Group
 
-![Core settings group](https://user-images.githubusercontent.com/11049883/48686851-43c91300-eb8c-11e8-84a0-50c33a638ce6.png)
+![Core settings group](https://user-images.githubusercontent.com/11049883/50360566-6dc87900-052e-11e9-83ab-9141a86911d4.png)
 
 * The Core settings group contains the basic operational configurations for the script.
+
+<a name="open_readme"/>
+
+### Open README
+
+* Opens the README file for this script.
+* The README file is an HTML version of this document - `README.md`
 
 <a name="configuration_permission"/>
 
