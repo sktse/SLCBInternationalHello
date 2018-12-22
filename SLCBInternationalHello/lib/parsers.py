@@ -32,3 +32,19 @@ class SemicolonSeparatedParser(object):
                 # The input is valid and is not empty.
                 values.append(value)
         return values
+
+
+class NewLineSeparatedFileParser:
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    def read(self):
+        with open(self.file_path, 'r') as f:
+            lines = f.read().splitlines()
+        return lines
+
+    def write(self, lines):
+        with open(self.file_path, 'w') as f:
+            for line in lines:
+                f.write("{}\n".format(line))
+
