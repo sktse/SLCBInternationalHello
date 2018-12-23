@@ -35,6 +35,10 @@ class SemicolonSeparatedParser(object):
 
 
 class NewLineSeparatedFileParser:
+    """
+    Reads and writes to a file that is new line separated.
+    Each line of text is treated as a single string.
+    """
     def __init__(self, file_path):
         self.file_path = file_path
 
@@ -44,7 +48,6 @@ class NewLineSeparatedFileParser:
         return lines
 
     def write(self, lines):
-        with open(self.file_path, 'w') as f:
+        with open(self.file_path, 'w+') as f:
             for line in lines:
                 f.write("{}\n".format(line))
-

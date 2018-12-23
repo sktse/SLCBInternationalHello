@@ -7,6 +7,7 @@ from unittest import TestCase
 from parsers import (
     InputParser,
     SemicolonSeparatedParser,
+    NewLineSeparatedFileParser,
 )
 
 
@@ -44,3 +45,50 @@ class SemicolonSeparatedParserTests(TestCase):
     def test_with_no_semicolons(self):
         result = SemicolonSeparatedParser.parse("I'm melting like a snow cone in Phoenix.")
         self.assertListEqual(result, ["I'm melting like a snow cone in Phoenix."])
+
+
+class NewLineSeparatedFileParserTest(TestCase):
+    def setUp(self):
+        file_path = os.path.join(os.path.join(os.path.dirname(__file__), "settings_files", "taken-read.txt"))
+        self.parser = NewLineSeparatedFileParser(file_path=file_path)
+
+    def test_read(self):
+        result = self.parser.read()
+
+        expected_result = [
+            "I don't know who you are.",
+            "I don't know what you want.",
+            "If you are looking for ransom I can tell you I don't have money,",
+            "but what I do have are a very particular set of skills.",
+            "Skills I have acquired over a very long career.",
+            "Skills that make me a nightmare for people like you.",
+            "If you let my daughter go now that'll be the end of it.",
+            "I will not look for you,",
+            "I will not pursue you,",
+            "but if you don't,",
+            "I will look for you,",
+            "I will find you and I will kill you.",
+            "-- Liam Neeson, Taken",
+        ]
+        self.assertListEqual(result, expected_result)
+
+    def test_write(self):
+        self.parser.file_path = os.path.join(os.path.join(os.path.dirname(__file__), "settings_files", "taken-write.txt"))
+        lines = [
+            "You know, we used to outsource this kind of thing.",
+            "But what we found was the countries we outsourced to had unreliable power grids.",
+            "Very Third World.",
+            "You'd turn on a switch - power wouldn't come on, and then tempers would get short.",
+            "People would resort to pulling fingernails.",
+            "Acid drips on bare skin.",
+            "The whole exercise would become counterproductive.",
+            "But here, the power's stable.",
+            "Here, there's a nice even flow.",
+            "Here, you can flip a switch and the power stays on all day.",
+            "Where is she?",
+        ]
+        self.parser.write(lines)
+
+        result = self.parser.read()
+        self.assertListEqual(result, lines)
+
