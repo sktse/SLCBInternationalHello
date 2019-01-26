@@ -33,6 +33,19 @@ class ScriptSettings(object):
         "Debug": False,
     }
 
+    # These are the keys we are writing to the settings JSON.
+    # This is a subset of keys because we have stopped using some keys.
+    SETTINGS_WRITE_KEYS = [
+        "Permission",
+        "Info",
+        "Cooldown",
+        "EnableCustomCommands",
+        "CustomCommandStrings",
+        "EnableCustomOutput",
+        "CustomOutputPercentage",
+        "Debug",
+    ]
+
     def __init__(self, settings_file=None):
         if settings_file:
             self.initialize(settings_file)
@@ -51,12 +64,19 @@ class ScriptSettings(object):
         self.__dict__ = json.loads(jsondata, encoding="utf-8")
         return
 
+    def build_save_dictionary(self):
+        save_dictionary = {}
+        for key in self.SETTINGS_WRITE_KEYS:
+            save_dictionary[key] = self.__dict__[key]
+        return save_dictionary
+
     def save(self, settingsfile, parent=None, script_name=None):
+        save_dictionary = self.build_save_dictionary()
         try:
             with codecs.open(settingsfile, encoding="utf-8-sig", mode="w+") as f:
-                json.dump(self.__dict__, f, encoding="utf-8")
+                json.dump(save_dictionary, f, encoding="utf-8")
             with codecs.open(settingsfile.replace("json", "js"), encoding="utf-8-sig", mode="w+") as f:
-                f.write("var settings = {0};".format(json.dumps(self.__dict__, encoding='utf-8')))
+                f.write("var settings = {0};".format(json.dumps(save_dictionary, encoding='utf-8')))
         except Exception as e:
             if parent:
                 parent.Log(script_name, "Failed to save settings to file: {}".format(e))
