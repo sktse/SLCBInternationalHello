@@ -37,7 +37,7 @@ class ScriptSettingsTests(TestCase):
         self.assertEqual(settings.CustomCommandStrings, "!hello;morning;evening")
         self.assertFalse(settings.EnableCustomOutput)
         self.assertEqual(settings.CustomOutputPercentage, 10)
-        self.assertEqual(settings.CustomOutputStrings, self.expected_custom_commands_strings)
+        self.assertIsNot(settings.__dict__, "CustomOutputStrings")
         self.assertFalse(settings.Debug)
 
     def test_constructor__with_v1_1_0_file__loads_file_with_defaults(self):
@@ -55,7 +55,7 @@ class ScriptSettingsTests(TestCase):
         # Expected to be default values
         self.assertFalse(settings.EnableCustomOutput)
         self.assertEqual(settings.CustomOutputPercentage, 10)
-        self.assertEqual(settings.CustomOutputStrings, self.expected_custom_commands_strings)
+        self.assertIsNot(settings.__dict__, "CustomOutputStrings")
 
     def test_initialize__loads_file(self):
         settings = ScriptSettings()
@@ -72,7 +72,7 @@ class ScriptSettingsTests(TestCase):
         self.assertEqual(settings.CustomCommandStrings, "!hello;morning;evening;banana")
         self.assertFalse(settings.EnableCustomOutput)
         self.assertEqual(settings.CustomOutputPercentage, 15)
-        self.assertEqual(settings.CustomOutputStrings, self.expected_custom_commands_strings)
+        self.assertIsNot(settings.__dict__, "CustomOutputStrings")
         self.assertTrue(settings.Debug)
 
     def test_save__saves_file(self):
@@ -93,10 +93,4 @@ class ScriptSettingsTests(TestCase):
         self.assertEqual(settings.to_string(),
                          "{'Info': '', 'EnableCustomCommands': False, 'CustomOutputPercentage': 10, "
                          "'CustomCommandStrings': '!hello;morning;evening', 'Permission': 'everyone', "
-                         "'CustomOutputStrings': \"Well hello Mr. Fancy Pants!;Say 'hello' to my little friend!;"
-                         "Hello, my name is Inigo Montoya. You killed my father. Prepare to die.;Heeeeere\'s Johnny!;"
-                         "You had me at 'Hello'.;You talkin' to me?;Live long and prosper.;Here's looking at you, kid.;"
-                         "Frankly, my dear, I don't give a damn.;Shane. Shane. Come back!;Mrs. Robinson, you're trying "
-                         "to seduce me. Aren't you?;Yo, Adrian!;May the Force be with you.;That'll do, pig, that'll do."
-                         ";Hello, is it me you are looking for?;\", 'Cooldown': 60, 'Debug': False, "
-                         "'EnableCustomOutput': False}")
+                         "'Cooldown': 60, 'Debug': False, 'EnableCustomOutput': False}")

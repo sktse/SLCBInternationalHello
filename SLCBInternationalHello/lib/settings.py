@@ -1,10 +1,15 @@
 import codecs
 import json
+import os
+
+from constants import ScriptConstants
+from parsers import (
+    NewLineSeparatedFileParser,
+    SemicolonSeparatedParser,
+)
 
 
 class ScriptSettings(object):
-    # Yeah... I know the values are different type.
-    # But it is better to have the defaults in one place than spread out all over in multiple functions.
     DEFAULT_VALUES_DICTIONARY = {
         "Permission": "everyone",
         "Info": "",
@@ -13,25 +18,22 @@ class ScriptSettings(object):
         "CustomCommandStrings": "!hello;morning;evening",
         "EnableCustomOutput": False,
         "CustomOutputPercentage": 10,
-        "CustomOutputStrings": (
-            "Well hello Mr. Fancy Pants!;"  # Army of Darkness (1992)
-            "Say 'hello' to my little friend!;"  # Scarface (1983)
-            "Hello, my name is Inigo Montoya. You killed my father. Prepare to die.;"  # The Princess Bride 1987
-            "Heeeeere's Johnny!;"  # The Shining (1980)
-            "You had me at 'Hello'.;"  # Jerry Maguire (1996)
-            "You talkin' to me?;"  # Taxi Driver (1976)
-            "Live long and prosper.;"  # OG Star Trek
-            "Here's looking at you, kid.;"  # Casablanca (1942)
-            "Frankly, my dear, I don't give a damn.;"  # Gone With the Wind (1939)
-            "Shane. Shane. Come back!;"  # Shane (1953)
-            "Mrs. Robinson, you're trying to seduce me. Aren't you?;"  # The Graduate (1967)
-            "Yo, Adrian!;"  # Rocky (1976)
-            "May the Force be with you.;"  # Star Wars (1977)
-            "That'll do, pig, that'll do.;"  # Babe (1995)
-            "Hello, is it me you are looking for?;"  # Hello - Lionel Richie (1984)
-            ),
         "Debug": False,
     }
+
+    # These are the keys we want to be able to read from the settings JSON.
+    # This is a larger set of keys so we can upgrade past settings files.
+    SETTINGS_READ_KEYS = [
+        "Permission",
+        "Info",
+        "Cooldown",
+        "EnableCustomCommands",
+        "CustomCommandStrings",
+        "EnableCustomOutput",
+        "CustomOutputPercentage",
+        "CustomOutputStrings",  # Last seen in v1.2.0
+        "Debug",
+    ]
 
     # These are the keys we are writing to the settings JSON.
     # This is a subset of keys because we have stopped using some keys.
@@ -60,6 +62,19 @@ class ScriptSettings(object):
             # Expect the open to fail if the file does not exist
             pass
 
+    def upgrade(self):
+        config_version = self.__dict__.get("VERSION", "1.2.0")
+        if config_version == "1.2.0":
+            # Dropped "CustomOutputStrings" because it is written to a file now.
+            custom_output_strings_list = SemicolonSeparatedParser.parse(self.CustomOutputStrings)
+            custom_output_settings = CustomOutputSettings()
+            custom_output_settings.write(custom_output_strings_list)
+            del self.CustomOutputStrings
+            config_version = "1.3.0"
+
+        # Save the changes to the settings file
+        self.save(script_name=ScriptConstants.SCRIPT_NAME)
+
     def reload(self, jsondata):
         self.__dict__ = json.loads(jsondata, encoding="utf-8")
         return
@@ -68,14 +83,19 @@ class ScriptSettings(object):
         save_dictionary = {}
         for key in self.SETTINGS_WRITE_KEYS:
             save_dictionary[key] = self.__dict__[key]
+
+        save_dictionary["VERSION"] = ScriptConstants.VERSION
         return save_dictionary
 
-    def save(self, settingsfile, parent=None, script_name=None):
+    def save(self, settingsfile=None, parent=None, script_name=None):
+        default_file_path = os.path.join(os.path.join(os.path.dirname(__file__), "..", "Settings", "settings.json"))
+        settings_path = settingsfile or default_file_path
+
         save_dictionary = self.build_save_dictionary()
         try:
-            with codecs.open(settingsfile, encoding="utf-8-sig", mode="w+") as f:
+            with codecs.open(settings_path, encoding="utf-8-sig", mode="w+") as f:
                 json.dump(save_dictionary, f, encoding="utf-8")
-            with codecs.open(settingsfile.replace("json", "js"), encoding="utf-8-sig", mode="w+") as f:
+            with codecs.open(settings_path.replace("json", "js"), encoding="utf-8-sig", mode="w+") as f:
                 f.write("var settings = {0};".format(json.dumps(save_dictionary, encoding='utf-8')))
         except Exception as e:
             if parent:
@@ -101,3 +121,16 @@ class ScriptSettings(object):
             if not hasattr(self, key):
                 value = self.DEFAULT_VALUES_DICTIONARY.get(key)
                 setattr(self, key, value)
+
+
+class CustomOutputSettings:
+    def __init__(self, file_path=None):
+        default_file_path = os.path.join(os.path.join(os.path.dirname(__file__), "..", "custom_outputs.txt"))
+        self.file_path = file_path or default_file_path
+        self.parser = NewLineSeparatedFileParser(file_path=self.file_path)
+
+    def read(self):
+        return self.parser.read()
+
+    def write(self, lines):
+        self.parser.write(lines)
