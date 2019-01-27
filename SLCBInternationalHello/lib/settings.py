@@ -48,11 +48,15 @@ class ScriptSettings(object):
         "Debug",
     ]
 
-    def __init__(self, settings_file=None):
+    def __init__(self, settings_file=None, custom_outputs_file=None):
         if settings_file:
             self.initialize(settings_file)
 
+        default_custom_outputs_path = os.path.join(os.path.join(os.path.dirname(__file__), "..", "custom_outputs.txt"))
+        self.custom_outputs_file = custom_outputs_file or default_custom_outputs_path
+
         self.initialize_defaults()
+        self.upgrade()
 
     def initialize(self, settings_file):
         try:
@@ -65,12 +69,16 @@ class ScriptSettings(object):
     def upgrade(self):
         config_version = self.__dict__.get("VERSION", "1.2.0")
         if config_version == "1.2.0":
-            # Dropped "CustomOutputStrings" because it is written to a file now.
-            custom_output_strings_list = SemicolonSeparatedParser.parse(self.CustomOutputStrings)
-            custom_output_settings = CustomOutputSettings()
-            custom_output_settings.write(custom_output_strings_list)
-            del self.CustomOutputStrings
             config_version = "1.3.0"
+            # Unfortunately v1.1.0 does not have "CustomOutputStrings"
+            if "CustomOutputStrings" in self.__dict__:
+                # Dropped "CustomOutputStrings" because it is written to a file now.
+                custom_output_strings_list = SemicolonSeparatedParser.parse(self.CustomOutputStrings)
+                custom_output_settings = CustomOutputSettings(
+                    file_path=self.custom_outputs_file,
+                )
+                custom_output_settings.write(custom_output_strings_list)
+                del self.CustomOutputStrings
 
         # Save the changes to the settings file
         self.save(script_name=ScriptConstants.SCRIPT_NAME)
