@@ -21,20 +21,6 @@ class ScriptSettings(object):
         "Debug": False,
     }
 
-    # These are the keys we want to be able to read from the settings JSON.
-    # This is a larger set of keys so we can upgrade past settings files.
-    SETTINGS_READ_KEYS = [
-        "Permission",
-        "Info",
-        "Cooldown",
-        "EnableCustomCommands",
-        "CustomCommandStrings",
-        "EnableCustomOutput",
-        "CustomOutputPercentage",
-        "CustomOutputStrings",  # Last seen in v1.2.0
-        "Debug",
-    ]
-
     # These are the keys we are writing to the settings JSON.
     # This is a subset of keys because we have stopped using some keys.
     SETTINGS_WRITE_KEYS = [
@@ -57,6 +43,11 @@ class ScriptSettings(object):
 
         self.initialize_defaults()
         self.upgrade()
+
+        # Initialize the custom out text file manager.
+        self.custom_output_settings = CustomOutputSettings(
+            file_path=self.custom_outputs_file,
+        )
 
     def initialize(self, settings_file):
         try:
@@ -109,6 +100,9 @@ class ScriptSettings(object):
             if parent:
                 parent.Log(script_name, "Failed to save settings to file: {}".format(e))
         return
+
+    def get_custom_output_strings(self):
+        return self.custom_output_settings.read()
 
     def to_string(self):
         self_dict = {}

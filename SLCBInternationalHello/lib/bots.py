@@ -1,7 +1,3 @@
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), "lib"))  # point at lib folder for classes / references
-
 from better_random import GreetingPicker
 from constants import ScriptConstants
 

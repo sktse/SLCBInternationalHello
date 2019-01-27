@@ -65,7 +65,6 @@ def Init():
     initialize_script()
     return
 
-
 def get_parent():
     """
     Wrapper function for the Parent object.
@@ -134,11 +133,8 @@ def initialize_custom_output_greetings():
     if not script_settings.EnableCustomOutput:
         return
 
-    custom_outputs_string = script_settings.CustomOutputStrings
-    logger.log("Custom outputs string:{}".format(custom_outputs_string))
-
-    custom_outputs = SemicolonSeparatedParser.parse(custom_outputs_string)
-    logger.log("Parsed custom outputs listed:{}".format(custom_outputs))
+    custom_outputs = script_settings.get_custom_output_strings()
+    logger.log("Custom outputs listed:{}".format(custom_outputs))
 
     for custom_output in custom_outputs:
         CustomOutputGreetings.append(custom_output)
