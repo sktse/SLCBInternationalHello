@@ -70,6 +70,14 @@
     "tooltip": "The percentage chance to trigger a custom command.",
     "group": "Customization"
   },
+  "button_custom_output_strings": {
+    "type": "button",
+    "label": "Open Custom Outputs Text File",
+    "tooltip": "Opens the text file with the custom output strings.",
+    "function": "open_custom_outputs_text_file",
+    "wsevent": "",
+    "group": "Customization"
+  },
   "Debug": {
     "type": "checkbox",
     "value": false,
