@@ -60,7 +60,7 @@ class ScriptSettings(object):
     def upgrade(self):
         config_version = self.__dict__.get("VERSION", "1.2.0")
         if config_version == "1.2.0":
-            config_version = "1.3.0"
+            self.VERSION = "1.3.0"
             # Unfortunately v1.1.0 does not have "CustomOutputStrings"
             if "CustomOutputStrings" in self.__dict__:
                 # Dropped "CustomOutputStrings" because it is written to a file now.
