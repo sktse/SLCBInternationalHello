@@ -13,10 +13,7 @@ clr.AddReference("IronPython.Modules.dll")
 from bots import HelloBot
 from detectors import GreetingDetector
 from constants import ScriptConstants
-from parsers import (
-    InputParser,
-    SemicolonSeparatedParser,
-)
+from parsers import SemicolonSeparatedParser
 from script_logger import StreamlabsChatbotScriptLogger
 from settings import ScriptSettings
 
@@ -64,7 +61,6 @@ def Init():
 
     initialize_script()
     return
-
 
 def get_parent():
     """
@@ -134,11 +130,8 @@ def initialize_custom_output_greetings():
     if not script_settings.EnableCustomOutput:
         return
 
-    custom_outputs_string = script_settings.CustomOutputStrings
-    logger.log("Custom outputs string:{}".format(custom_outputs_string))
-
-    custom_outputs = SemicolonSeparatedParser.parse(custom_outputs_string)
-    logger.log("Parsed custom outputs listed:{}".format(custom_outputs))
+    custom_outputs = script_settings.get_custom_output_strings()
+    logger.log("Custom outputs listed:{}".format(custom_outputs))
 
     for custom_output in custom_outputs:
         CustomOutputGreetings.append(custom_output)
@@ -197,10 +190,25 @@ def ScriptToggled(state):
     return
 
 
+"""
+Streamlabs Chatbot Configuration UI functions
+
+These functions are hooked into the configuration UI to provide more advanced functionality.
+"""
+
+
 def open_readme():
     """
     The function exposed to the Settings UI to open the README file
     """
     readme_file = os.path.join(os.path.dirname(__file__), "..", "README.html")
     os.startfile(readme_file)
+    return
+
+
+def open_custom_outputs_text_file():
+    """
+    The function exposed to the Settings UI to open the custom outputs text file.
+    """
+    os.startfile(script_settings.custom_outputs_file)
     return

@@ -70,11 +70,12 @@
     "tooltip": "The percentage chance to trigger a custom command.",
     "group": "Customization"
   },
-  "CustomOutputStrings": {
-    "type": "textbox",
-    "value": "Well hello Mr. Fancy Pants!;Say 'hello' to my little friend!;Hello, my name is Inigo Montoya. You killed my father. Prepare to die.;Heeeeere's Johnny!;You had me at 'Hello'.;You talkin' to me?;Live long and prosper.;Here's looking at you, kid.;Frankly, my dear, I don't give a damn.;Shane. Shane. Come back!;Mrs. Robinson, you're trying to seduce me. Aren't you?;Yo, Adrian!;May the Force be with you.;That'll do, pig, that'll do.;Hello, is it me you are looking for?;",
-    "label": "Custom Outputs",
-    "tooltip": "Your custom output greetings. All phrases must be separated by semi-colons.",
+  "button_custom_output_strings": {
+    "type": "button",
+    "label": "Open Custom Outputs Text File",
+    "tooltip": "Opens the text file with the custom output strings.",
+    "function": "open_custom_outputs_text_file",
+    "wsevent": "",
     "group": "Customization"
   },
   "Debug": {

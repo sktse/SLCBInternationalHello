@@ -4,7 +4,7 @@ class ScriptConstants(object):
     WEBSITE = "https://github.com/sktse"
     DESCRIPTION = "Well hello Mr. Fancy Pants"
     CREATOR = "sktse"
-    VERSION = "1.2.0"
+    VERSION = "1.3.0"
 
     # Custom constants
     SCRIPT_KEY = "sktse-HelloReply"

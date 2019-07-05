@@ -5,29 +5,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../SLCBInternationalHel
 from unittest import TestCase
 from mock import Mock
 
-from settings import ScriptSettings
+from settings import (
+    CustomOutputSettings,
+    ScriptSettings,
+)
 
 
 class ScriptSettingsTests(TestCase):
-    def setUp(self):
-        self.expected_custom_commands_strings = (
-            "Well hello Mr. Fancy Pants!;"  # Army of Darkness (1992)
-            "Say 'hello' to my little friend!;"  # Scarface (1983)
-            "Hello, my name is Inigo Montoya. You killed my father. Prepare to die.;"  # The Princess Bride 1987
-            "Heeeeere's Johnny!;"  # The Shining (1980)
-            "You had me at 'Hello'.;"  # Jerry Maguire (1996)
-            "You talkin' to me?;"  # Taxi Driver (1976)
-            "Live long and prosper.;"  # OG Star Trek
-            "Here's looking at you, kid.;"  # Casablanca (1942)
-            "Frankly, my dear, I don't give a damn.;"  # Gone With the Wind (1939)
-            "Shane. Shane. Come back!;"  # Shane (1953)
-            "Mrs. Robinson, you're trying to seduce me. Aren't you?;"  # The Graduate (1967)
-            "Yo, Adrian!;"  # Rocky (1976)
-            "May the Force be with you.;"  # Star Wars (1977)
-            "That'll do, pig, that'll do.;"  # Babe (1995)
-            "Hello, is it me you are looking for?;"  # Hello - Lionel Richie (1984)
-        )
-
     def test_default_constructor__setups_default_values(self):
         settings = ScriptSettings()
         self.assertEqual(settings.Permission, "everyone")
@@ -37,12 +21,16 @@ class ScriptSettingsTests(TestCase):
         self.assertEqual(settings.CustomCommandStrings, "!hello;morning;evening")
         self.assertFalse(settings.EnableCustomOutput)
         self.assertEqual(settings.CustomOutputPercentage, 10)
-        self.assertEqual(settings.CustomOutputStrings, self.expected_custom_commands_strings)
+        self.assertIsNot(settings.__dict__, "CustomOutputStrings")
         self.assertFalse(settings.Debug)
 
     def test_constructor__with_v1_1_0_file__loads_file_with_defaults(self):
-        path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-v1.1.0.json")
-        settings = ScriptSettings(path)
+        settings_path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-v1.1.0.json")
+        custom_output_path = os.path.join(os.path.dirname(__file__), "settings_files", "temp_v1.1.0_outputs.txt")
+        settings = ScriptSettings(
+            settings_file=settings_path,
+            custom_outputs_file=custom_output_path,
+        )
 
         # v1.1.0 available properties
         self.assertEqual(settings.Permission, "user_specific")
@@ -55,7 +43,38 @@ class ScriptSettingsTests(TestCase):
         # Expected to be default values
         self.assertFalse(settings.EnableCustomOutput)
         self.assertEqual(settings.CustomOutputPercentage, 10)
-        self.assertEqual(settings.CustomOutputStrings, self.expected_custom_commands_strings)
+        self.assertIsNot(settings.__dict__, "CustomOutputStrings")
+
+    def test_constructor__with_v1_2_0_file__loads_file_and_writes_to_custom_outputs(self):
+        settings_path = os.path.join(os.path.dirname(__file__), "settings_files", "settings-v1.2.0.json")
+        custom_output_path = os.path.join(os.path.dirname(__file__), "settings_files", "temp_v1.2.0_outputs.txt")
+        settings = ScriptSettings(
+            settings_file=settings_path,
+            custom_outputs_file=custom_output_path,
+        )
+
+        # v1.2.0 available properties
+        self.assertEqual(settings.Permission, "user_specific")
+        self.assertEqual(settings.Info, "Pineapple")
+        self.assertEqual(settings.Cooldown, 10)
+        self.assertTrue(settings.EnableCustomCommands)
+        self.assertEqual(settings.CustomCommandStrings, "!hello;!boo")
+        self.assertTrue(settings.Debug)
+        self.assertTrue(settings.EnableCustomOutput)
+        self.assertEqual(settings.CustomOutputPercentage, 15)
+        self.assertIsNot(settings.__dict__, "CustomOutputStrings")
+
+        # Verify the custom outputs get written to the text file
+        custom_output_settings = CustomOutputSettings(
+            file_path=custom_output_path,
+        )
+
+        result = custom_output_settings.read()
+        expected_result = [
+            "Well hello Mr. Fancy Pants!",
+            "Hello, is it me you are looking for?",
+        ]
+        self.assertListEqual(result, expected_result)
 
     def test_initialize__loads_file(self):
         settings = ScriptSettings()
@@ -72,7 +91,7 @@ class ScriptSettingsTests(TestCase):
         self.assertEqual(settings.CustomCommandStrings, "!hello;morning;evening;banana")
         self.assertFalse(settings.EnableCustomOutput)
         self.assertEqual(settings.CustomOutputPercentage, 15)
-        self.assertEqual(settings.CustomOutputStrings, self.expected_custom_commands_strings)
+        self.assertIsNot(settings.__dict__, "CustomOutputStrings")
         self.assertTrue(settings.Debug)
 
     def test_save__saves_file(self):
@@ -93,10 +112,4 @@ class ScriptSettingsTests(TestCase):
         self.assertEqual(settings.to_string(),
                          "{'Info': '', 'EnableCustomCommands': False, 'CustomOutputPercentage': 10, "
                          "'CustomCommandStrings': '!hello;morning;evening', 'Permission': 'everyone', "
-                         "'CustomOutputStrings': \"Well hello Mr. Fancy Pants!;Say 'hello' to my little friend!;"
-                         "Hello, my name is Inigo Montoya. You killed my father. Prepare to die.;Heeeeere\'s Johnny!;"
-                         "You had me at 'Hello'.;You talkin' to me?;Live long and prosper.;Here's looking at you, kid.;"
-                         "Frankly, my dear, I don't give a damn.;Shane. Shane. Come back!;Mrs. Robinson, you're trying "
-                         "to seduce me. Aren't you?;Yo, Adrian!;May the Force be with you.;That'll do, pig, that'll do."
-                         ";Hello, is it me you are looking for?;\", 'Cooldown': 60, 'Debug': False, "
-                         "'EnableCustomOutput': False}")
+                         "'Cooldown': 60, 'Debug': False, 'EnableCustomOutput': False}")
