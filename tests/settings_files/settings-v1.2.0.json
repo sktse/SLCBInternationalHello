@@ -1,0 +1,11 @@
+﻿{
+  "Info": "Pineapple",
+  "EnableCustomCommands": true,
+  "CustomOutputPercentage": 15,
+  "CustomCommandStrings": "!hello;!boo",
+  "Permission": "user_specific",
+  "CustomOutputStrings": "Well hello Mr. Fancy Pants!;Hello, is it me you are looking for?;",
+  "Cooldown": 10,
+  "Debug": true,
+  "EnableCustomOutput": true
+}

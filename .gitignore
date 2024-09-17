@@ -21,6 +21,7 @@ SLCBInternationalHello/Settings/settings.json
 test-reports/
 tests/settings_files/settings-saved.json
 tests/settings_files/settings-saved.js
+tests/settings_files/taken-write.txt
 
 # Release building
 tmp/
